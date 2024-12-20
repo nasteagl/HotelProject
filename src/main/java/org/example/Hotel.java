@@ -9,6 +9,17 @@ public class Hotel {
     private String hotelEmail;
     List<Client> clients;
     List<RoomsType> rooms;
+    
+    public Hotel(int hotel_id, String hotelAddress, String hotelCity, String hotelCountry, String hotelPhone, String hotelEmail, List<Client> clients, List<RoomsType> rooms) {
+        this.hotel_id = hotel_id;
+        this.hotelAddress = hotelAddress;
+        this.hotelCity = hotelCity;
+        this.hotelCountry = hotelCountry;
+        this.hotelPhone = hotelPhone;
+        this.hotelEmail = hotelEmail;
+        this.clients = clients;
+        this.rooms = rooms;
+    }
 
     public int getHotel_id() {
         return hotel_id;
