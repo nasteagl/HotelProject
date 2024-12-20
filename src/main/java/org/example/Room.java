@@ -6,9 +6,18 @@ public class Room {
     private int number;
     private int price;
     private int beds;
-    private String room_type;
     private boolean reserved;
     List<RoomsType>rooms_types;
+
+    Room(int id_room,int floor,int number,int price,int beds, String room_type,List<RoomsType>rooms_types){
+        this.id_room = id_room;
+        this.floor = floor;
+        this.number = number;
+        this.price = price;
+        this.beds = beds;
+        this.reserved = false;
+        this.rooms_types = new ArrayList<>();
+    }
 
     public int getId_room() {
         return id_room;
