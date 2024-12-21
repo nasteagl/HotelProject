@@ -8,8 +8,5 @@ public class RoomsType {
      protected  final static String FamilyRoom="FamilyRoom";
     protected final static String PresidentialSuite="PresidentialSuite";
 
-
-
-
 }
 

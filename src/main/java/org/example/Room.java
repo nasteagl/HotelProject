@@ -9,7 +9,7 @@ public class Room {
     private boolean reserved;
     List<RoomsType>rooms_types;
 
-    Room(int id_room,int floor,int number,int price,int beds, String room_type,List<RoomsType>rooms_types){
+    Room(int id_room,int floor,int number,int price,int beds, List<RoomsType>rooms_types){
         this.id_room = id_room;
         this.floor = floor;
         this.number = number;
@@ -39,9 +39,7 @@ public class Room {
         return price;
     }
 
-    public String getRoom_type() {
-        return room_type;
-    }
+
 
     public boolean isReserved() {
         return reserved;
@@ -71,7 +69,5 @@ public class Room {
         this.reserved = reserved;
     }
 
-    public void setRoom_type(String room_type) {
-        this.room_type = room_type;
-    }
+
 }
