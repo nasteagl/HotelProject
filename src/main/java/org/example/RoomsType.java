@@ -2,15 +2,41 @@ package org.example;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 
+enum RoomTypes {
+    Standart,
+    DoubleBed,
+    SingleBed,
+    Penthouse,
+    FamilyRoom,
+    PresidentialSuite
+}
+
 @Data
 @AllArgsConstructor
 public class RoomsType {
-    protected final static String Standart = "Standard";
-    protected final static String DoubleBed="DoubleBed";
-    protected final static String SingleBed="SingleBed";
-    protected final static String Penthouse="Penthouse";
-     protected  final static String FamilyRoom="FamilyRoom";
-    protected final static String PresidentialSuite="PresidentialSuite";
+    private RoomTypes roomType;
+
+    public RoomType(RoomTypeBuilder builder){
+        this.roomType=builder.roomType;
+    }
+
+
+    public static class RoomTypeBuilder {
+        private RoomTypes roomType;
+
+        public RoomTypeBuilder roomTypeBuiler(RoomTypes roomType) {
+            this.roomType = roomType;
+            return this;
+        }
+
+        public RoomType build(){
+            return new RoomType(this);
+        }
+    }
+
+
+
+
 
 }
 
