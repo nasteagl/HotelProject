@@ -1,24 +1,56 @@
 package org.example;
-import java.util.Date;
 
+import java.util.Date;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@Entity
+
+@Table(name="Client")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Client {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "clientId")
     private int clientId;
+
+    @Column(name = "firstname", length = 50, nullable = false)
     private String firstname;
+
+    @Column(name = "secondname", length = 50, nullable = false)
     private String lastname;
+
+    @Column(name = "age")
     private int age;
+
+    @Column(name = "persons")
     private int persons;
+
+    @Column(name = "adult_persons")
     private int adult_persons;
+
+    @Column(name = "children_persons")
     private int children_persons;
+
+    @Column(name = "checkin", nullable = false)
     private Date checkin;
+
+    @Column(name = "checkout", nullable = false)
     private Date checkout;
+
+    @Column(name = "phone_number", length = 50)
     private String phone_number;
+
+    @Column(name = "email", length = 50)
     private String email;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="hotel_id")
+    private Hotel hotel;
 
     private Client(ClientBuilder builder) {
         this.clientId = builder.clientId;
@@ -60,11 +92,17 @@ public class Client {
         }
 
         public ClientBuilder setAge(int age) {
+            if (age < 0) {
+                throw new IllegalArgumentException("Age cannot be negative");
+            }
             this.age = age;
             return this;
         }
 
         public ClientBuilder setNrPers(int persons) {
+            if (persons < 0) {
+                throw new IllegalArgumentException("Persons cannot be negative");
+            }
             this.persons = persons;
             return this;
         }
