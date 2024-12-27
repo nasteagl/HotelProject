@@ -1,18 +1,42 @@
 package org.example;
 import java.util.*;
+
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@Table(name = "hotel")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Hotel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "hotel_id")
     private int hotel_id;
+
+    @Column(name = "hotelAddress", nullable = false, length = 100)
     private String hotelAddress;
+
+    @Column(name = "hotelCity", nullable = false, length = 100)
     private String hotelCity;
+
+    @Column(name = "hotelCountry", nullable = false, length = 100)
     private String hotelCountry;
+
+    @Column(name = "hotelPhone", nullable = false, unique = true, length = 50)
     private String hotelPhone;
+
+    @Column(name = "hotelEmail", nullable = false, length = 100)
     private String hotelEmail;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hotel")
     List<Client> clients;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hotel")
     List<RoomsType> rooms;
 
     public Hotel(HotelBuilder builder) {
@@ -39,6 +63,9 @@ public class Hotel {
         private List<RoomsType> rooms;
 
         public HotelBuilder hotel_id(int hotel_id) {
+            if(hotel_id < 0) {
+                throw new IllegalArgumentException("Invalid hotel id");
+            }
             this.hotel_id = hotel_id;
             return this;
         }
@@ -74,7 +101,6 @@ public class Hotel {
             return new Hotel(this);
         }
     }
-
 
 
 }
