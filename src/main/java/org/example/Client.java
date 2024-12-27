@@ -94,18 +94,5 @@ public class Client {
         }
     }
 
-    public String toString() {
-        return "Client{" +
-                "clientId=" + clientId +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", age=" + age +
-                ", nrPers=" + persons +
-                ", checkin=" + checkin +
-                ", checkout=" + checkout +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phone_number + '\'' +
-                '}';
 
-    }
 }
