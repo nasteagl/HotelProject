@@ -1,17 +1,39 @@
 package org.example;
 import java.util.*;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name="rooms")
 @Data
 @AllArgsConstructor
-public class Room {
+@NoArgsConstructor
+public class Room{
+//adddaddd
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) //auto incrementareee
+    @Column(name="id_room")
     private int id_room;
+
+    @Column(name="floor", nullable = false)
     private int floor;
+
+    @Column(name="number", nullable = false, unique = true)
     private int number;
+
+    @Column(name = "price", nullable = false)
     private int price;
+
+    @Column(name="beds", nullable = false)
     private int beds;
+
+    @Column(name="reserved", nullable = false)
     private boolean reserved;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="roomType")
     List<RoomsType>rooms_types;
 
 
@@ -36,26 +58,41 @@ public class Room {
         private List<RoomsType> rooms_types;
 
         public RoomBuilder setIdRoom(int id_room) {
+          if(id_room >=0){
+              throw new IllegalArgumentException("id_room must be greater than 0");
+          }
             this.id_room = id_room;
             return this;
         }
 
         public RoomBuilder setFloor(int floor) {
+            if(floor >=0){
+                throw new IllegalArgumentException("floor must be greater than 0");
+            }
             this.floor = floor;
             return this;
         }
 
         public RoomBuilder setNumber(int number) {
+            if(number>0){
+                throw new IllegalArgumentException("number must be greater than 0");
+            }
             this.number = number;
             return this;
         }
 
         public RoomBuilder setPrice(int price) {
+            if(price>0){
+                throw new IllegalArgumentException("price must be greater than 0");
+            }
             this.price = price;
             return this;
         }
 
         public RoomBuilder setBeds(int beds) {
+            if(beds>0){
+                throw new IllegalArgumentException("beds must be greater than 0");
+            }
             this.beds = beds;
             return this;
         }
@@ -75,18 +112,6 @@ public class Room {
         }
     }
 
-    public String toString() {
-        return "Rooms{" +
-                "rooms_id=" + id_room +
-                ",floor='" + floor + '\'' +
-                ", number='" + number + '\'' +
-                ", price=" + price +
-                ", beds=" + beds +
-                ", reserved=" + reserved +
-                ", rooms type=" + rooms_types +
 
-                '}';
-
-    }
 
 }
