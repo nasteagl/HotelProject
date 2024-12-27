@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room{
-
+//adddaddd
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) //auto incrementareee
     @Column(name="id_room")
