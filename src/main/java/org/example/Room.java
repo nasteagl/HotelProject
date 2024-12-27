@@ -1,17 +1,39 @@
 package org.example;
 import java.util.*;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name="rooms")
 @Data
 @AllArgsConstructor
-public class Room {
+@NoArgsConstructor
+public class Room{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) //auto incrementareee
+    @Column(name="id_room")
     private int id_room;
+
+    @Column(name="floor", nullable = false)
     private int floor;
+
+    @Column(name="number", nullable = false, unique = true)
     private int number;
+
+    @Column(name = "price", nullable = false)
     private int price;
+
+    @Column(name="beds", nullable = false)
     private int beds;
+
+    @Column(name="reserved", nullable = false)
     private boolean reserved;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="roomType")
     List<RoomsType>rooms_types;
 
 
@@ -75,18 +97,6 @@ public class Room {
         }
     }
 
-    public String toString() {
-        return "Rooms{" +
-                "rooms_id=" + id_room +
-                ",floor='" + floor + '\'' +
-                ", number='" + number + '\'' +
-                ", price=" + price +
-                ", beds=" + beds +
-                ", reserved=" + reserved +
-                ", rooms type=" + rooms_types +
 
-                '}';
-
-    }
 
 }
