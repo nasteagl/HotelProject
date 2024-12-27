@@ -58,26 +58,41 @@ public class Room{
         private List<RoomsType> rooms_types;
 
         public RoomBuilder setIdRoom(int id_room) {
+          if(id_room >=0){
+              throw new IllegalArgumentException("id_room must be greater than 0");
+          }
             this.id_room = id_room;
             return this;
         }
 
         public RoomBuilder setFloor(int floor) {
+            if(floor >=0){
+                throw new IllegalArgumentException("floor must be greater than 0");
+            }
             this.floor = floor;
             return this;
         }
 
         public RoomBuilder setNumber(int number) {
+            if(number>0){
+                throw new IllegalArgumentException("number must be greater than 0");
+            }
             this.number = number;
             return this;
         }
 
         public RoomBuilder setPrice(int price) {
+            if(price>0){
+                throw new IllegalArgumentException("price must be greater than 0");
+            }
             this.price = price;
             return this;
         }
 
         public RoomBuilder setBeds(int beds) {
+            if(beds>0){
+                throw new IllegalArgumentException("beds must be greater than 0");
+            }
             this.beds = beds;
             return this;
         }

@@ -37,7 +37,10 @@ public class RoomsType {
         this.roomType = builder.roomType;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
 
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private Hotel hotel;
     public static class RoomTypeBuilder {
         private RoomTypes roomType;
 

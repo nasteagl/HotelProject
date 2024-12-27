@@ -75,17 +75,6 @@ public class Hotel {
         }
     }
 
-    public String toString(){
-        return "Hotel{" +
-                "hotel_id=" + hotel_id +
-                ", address='" + hotelAddress + '\'' +
-                ", city='" + hotelCity + '\'' +
-                ", country=" + hotelCountry + '\'' +
-                ", phone=" + hotelPhone + '\'' +
-                ", email=" + hotelEmail + '\'' +
-                ", clients=" + clients + '\'' +
-                ", rooms=" + rooms +
-                '}';
-    }
+
 
 }
