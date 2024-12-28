@@ -2,10 +2,13 @@ package org.example;
 import java.util.*;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @Table(name = "hotel")
 @Data
 @AllArgsConstructor
@@ -33,11 +36,12 @@ public class Hotel {
     @Column(name = "hotelEmail", nullable = false, length = 100)
     private String hotelEmail;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hotel")
-    List<Client> clients;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hotel")
+    private Client client;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hotel")
-    List<RoomsType> rooms;
+    public Hotel(Client client) {
+        this.client = client;
+    }
 
     public Hotel(HotelBuilder builder) {
         this.hotel_id = builder.hotel_id;
@@ -46,9 +50,6 @@ public class Hotel {
         this.hotelCountry = builder.hotelCountry;
         this.hotelPhone = builder.hotelPhone;
         this.hotelEmail = builder.hotelEmail;
-        this.clients = builder.clients;
-        this.rooms = builder.rooms;
-
     }
 
 
@@ -59,8 +60,7 @@ public class Hotel {
         private String hotelCountry;
         private String hotelPhone;
         private String hotelEmail;
-        private List<Client> clients;
-        private List<RoomsType> rooms;
+
 
         public HotelBuilder hotel_id(int hotel_id) {
             if(hotel_id < 0) {
@@ -87,14 +87,6 @@ public class Hotel {
         }
         public HotelBuilder hotelEmail(String hotelEmail) {
             this.hotelEmail = hotelEmail;
-            return this;
-        }
-        public HotelBuilder clients(List<Client> clients) {
-            this.clients = clients;
-            return this;
-        }
-        public HotelBuilder rooms(List<RoomsType> rooms) {
-            this.rooms = rooms;
             return this;
         }
         public Hotel build(){

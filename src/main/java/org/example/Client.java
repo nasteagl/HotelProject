@@ -48,7 +48,7 @@ public class Client {
     @Column(name = "email", length = 50)
     private String email;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="hotel_id")
     private Hotel hotel;
 
@@ -62,6 +62,7 @@ public class Client {
         this.checkout = builder.checkout;
         this.email = builder.email;
         this.phone_number = builder.phone_number;
+        this.hotel = builder.hotel;
     }
 
     public static class ClientBuilder {
@@ -74,6 +75,7 @@ public class Client {
         private Date checkout;
         private String email;
         private String phone_number;
+        public Hotel hotel;
 
 
         public ClientBuilder setClientId(int clientId) {
@@ -122,10 +124,16 @@ public class Client {
             return this;
         }
 
-        public ClientBuilder setPhoneNumber(String phone_number) {
+        public ClientBuilder setHotel(String phone_number) {
             this.phone_number = phone_number;
             return this;
         }
+
+        public ClientBuilder setHotel(Hotel hotel) {
+            this.hotel = hotel;
+            return this;
+        }
+
 
         public Client build() {
             return new Client(this);
