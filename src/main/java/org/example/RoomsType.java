@@ -1,9 +1,12 @@
 package org.example;
 
+import java.util.*;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +23,10 @@ public class RoomsType {
     @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
     @Column(name = "room_type", nullable = false)
     private RoomTypes roomType;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="id_room")
+    private Room room;
 
 
 

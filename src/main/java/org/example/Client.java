@@ -52,7 +52,7 @@ public class Client {
     @JoinColumn(name="hotel_id")
     private Hotel hotel;
 
-    private Client(ClientBuilder builder) {
+    public Client(ClientBuilder builder) {
         this.clientId = builder.clientId;
         this.firstname = builder.firstname;
         this.lastname = builder.lastname;

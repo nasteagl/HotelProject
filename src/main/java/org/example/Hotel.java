@@ -5,12 +5,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Table(name = "hotel")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Component
 public class Hotel {
 
     @Id
@@ -38,6 +41,7 @@ public class Hotel {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hotel")
     List<RoomsType> rooms;
+
 
     public Hotel(HotelBuilder builder) {
         this.hotel_id = builder.hotel_id;

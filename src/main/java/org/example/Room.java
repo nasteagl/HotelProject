@@ -33,18 +33,17 @@ public class Room{
     private boolean reserved;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="roomType")
-    List<RoomsType>rooms_types;
+    @JoinColumn(name="idRoomsType")
+    private RoomsType roomType;
 
 
-    private Room(RoomBuilder builder){
+    public Room(RoomBuilder builder){
         this.id_room=builder.id_room;
         this.floor=builder.floor;
         this.number=builder.number;
         this.price=builder.price;
         this.beds=builder.beds;
         this.reserved=builder.reserved;
-        this.rooms_types=builder.rooms_types;
     }
 
 
@@ -55,7 +54,6 @@ public class Room{
         private int price;
         private int beds;
         private boolean reserved;
-        private List<RoomsType> rooms_types;
 
         public RoomBuilder setIdRoom(int id_room) {
           if(id_room >=0){
@@ -102,16 +100,20 @@ public class Room{
             return this;
         }
 
-        public RoomBuilder setRoomsTypes(List<RoomsType> rooms_types) {
-            this.rooms_types = rooms_types;
-            return this;
-        }
-
         public Room build() {
             return new Room(this);
         }
     }
 
 
+    @OneToMany(mappedBy = "room")
+    private Collection<RoomsType> roomsType;
 
+    public Collection<RoomsType> getRoomsType() {
+        return roomsType;
+    }
+
+    public void setRoomsType(Collection<RoomsType> roomsType) {
+        this.roomsType = roomsType;
+    }
 }
