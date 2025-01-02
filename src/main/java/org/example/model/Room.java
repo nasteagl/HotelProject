@@ -1,4 +1,4 @@
-package org.example;
+package org.example.model;
 import java.util.*;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,14 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="rooms")
+@Table(name="room")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room{
 //adddaddd
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //auto incrementareee
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incrementareee
     @Column(name="id_room")
     private int id_room;
 
@@ -33,7 +33,7 @@ public class Room{
     private boolean reserved;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="idRoomsType")
+    @JoinColumn(name="id_rooms_type")
     private RoomsType roomType;
 
 

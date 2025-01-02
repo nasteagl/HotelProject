@@ -1,11 +1,10 @@
-package org.example;
+package org.example.model;
 import java.util.*;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Table(name = "hotel")
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class Hotel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_id")
     private int hotel_id;
 

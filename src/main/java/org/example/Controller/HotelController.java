@@ -1,7 +1,7 @@
 package org.example.Controller;
 
 
-import org.example.Hotel;
+import org.example.model.Hotel;
 import org.example.Service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
