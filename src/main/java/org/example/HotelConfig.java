@@ -20,7 +20,7 @@ public class HotelConfig {
 
     @Bean
     public Hotel hotel() {
-        return new Hotel.HotelBuilder().hotelCity("Chisinau").build();
+        return new Hotel.HotelBuilder().build();
     }
 
 

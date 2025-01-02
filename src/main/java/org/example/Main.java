@@ -18,6 +18,6 @@ public class Main {
 
         Hotel hotel = context.getBean(Hotel.class);
 
-        System.out.println("Hotel City "+ hotel.getHotelCity());
+        System.out.println(hotel);
     }
 }

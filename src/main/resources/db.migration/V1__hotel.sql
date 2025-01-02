@@ -11,21 +11,19 @@ CREATE TABLE Client (
                         phone_number VARCHAR(15)
 );
 
+CREATE TYPE room_type AS ENUM ('Standart', 'DoubleBed', 'SingleBed', 'Penthouse', 'FamilyRoom', 'PresidentialSuite');
+
+
 -- Crearea tabelului RoomTypes
-CREATE TABLE RoomTypes (
-                           rooms_type_id SERIAL PRIMARY KEY,
-                           room_type VARCHAR(50) NOT NULL UNIQUE
+CREATE TABLE rooms_type (
+                            id_rooms_type SERIAL PRIMARY KEY,
+                            current_type room_type NOT NULL,
+                            id_room INT NOT NULL,
+                            hotel_id INT NOT NULL,
+                            FOREIGN KEY (id_room) REFERENCES room(id_room) ON DELETE CASCADE,
+                            FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id) ON DELETE CASCADE
 );
 
--- Inserarea valorilor în tabelul RoomTypes
-INSERT INTO RoomTypes (room_type)
-VALUES
-    ('Standard'),
-    ('DoubleBed'),
-    ('SingleBed'),
-    ('Penthouse'),
-    ('FamilyRoom'),
-    ('PresidentialSuite');
 
 -- Crearea tabelului Room
 CREATE TABLE Room (
@@ -49,3 +47,5 @@ CREATE TABLE Hotel (
                        client_id INT NOT NULL REFERENCES Client(client_id),
                        rooms_type_id INT NOT NULL REFERENCES RoomTypes(rooms_type_id)
 );
+
+Drop table client cascade;
