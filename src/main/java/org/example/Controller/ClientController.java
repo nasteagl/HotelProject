@@ -1,6 +1,5 @@
 package org.example.Controller;
 
-
 import org.example.Service.ClientService;
 import org.example.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,4 @@ public class ClientController {
     public Client createClient(@RequestBody Client client) {
         return client;
     }
-
-
 }
