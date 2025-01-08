@@ -1,6 +1,5 @@
-package org.example.model;
+package org.example.models;
 
-import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;

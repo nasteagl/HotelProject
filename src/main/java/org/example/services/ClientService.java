@@ -1,6 +1,6 @@
-package org.example.Service;
+package org.example.services;
 
-import org.example.Repositories.ClientRepository;
+import org.example.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

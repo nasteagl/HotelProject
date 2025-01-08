@@ -1,6 +1,6 @@
-package org.example.Service;
+package org.example.services;
 
-import org.example.Repositories.RoomsTypeRepository;
+import org.example.repositories.RoomsTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

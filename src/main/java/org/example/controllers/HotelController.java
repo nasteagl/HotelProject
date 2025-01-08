@@ -1,8 +1,8 @@
-package org.example.Controller;
+package org.example.controllers;
 
 
-import org.example.model.Hotel;
-import org.example.Service.HotelService;
+import org.example.models.Hotel;
+import org.example.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

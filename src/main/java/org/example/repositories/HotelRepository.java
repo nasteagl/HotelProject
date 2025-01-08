@@ -1,6 +1,6 @@
-package org.example.Repositories;
+package org.example.repositories;
 
-import org.example.model.Hotel;
+import org.example.models.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
