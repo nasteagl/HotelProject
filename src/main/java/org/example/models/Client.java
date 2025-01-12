@@ -1,9 +1,12 @@
 package org.example.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Entity
 @Table(name="client", schema = "hotel_schema")
@@ -29,11 +32,13 @@ public class Client {
     @Column(name = "client_nr_pers", nullable = false)
     private int nr_pers;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     @Column(name = "client_check_in", nullable = false)
-    private String checkin;
+    private Date checkin;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     @Column(name = "client_check_out", nullable = false)
-    private String checkout;
+    private Date checkout;
 
     @Column(name = "client_phone_number", length = 50, nullable = false)
     private String phone_number;
@@ -64,8 +69,8 @@ public class Client {
         private String lastname;
         private int age;
         private int nr_pers;
-        private String checkin;
-        private String checkout;
+        private Date checkin;
+        private Date checkout;
         private String email;
         private String phone_number;
         public Hotel hotel;
@@ -102,12 +107,12 @@ public class Client {
             return this;
         }
 
-        public ClientBuilder setCheckin(String checkin) {
+        public ClientBuilder setCheckin(Date checkin) {
             this.checkin = checkin;
             return this;
         }
 
-        public ClientBuilder setCheckout(String checkout) {
+        public ClientBuilder setCheckout(Date checkout) {
             this.checkout = checkout;
             return this;
         }
