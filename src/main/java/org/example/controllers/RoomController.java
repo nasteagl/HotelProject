@@ -37,9 +37,6 @@ public class RoomController {
      roomService.updateRoom(room);
     }
 
-//    @PatchMapping
-//    public void deleteRoom(@RequestParam Room room, @RequestParam Integer new_room_id )
-//    }
     @DeleteMapping("/{roomId}/")
     public void deleteRoomById(@PathVariable Integer roomId) {
      roomService.deleteRoom(roomId);

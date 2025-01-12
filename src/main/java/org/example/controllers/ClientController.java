@@ -19,8 +19,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
-
     @GetMapping
     public ResponseEntity<List<Client>> getClients() {
         return new ResponseEntity<>(clientService.getClients(), HttpStatus.OK);
@@ -44,11 +42,6 @@ public class ClientController {
     @PutMapping
     public void updateClient(@RequestBody Client client) {
         clientService.updateClient(client);
-    }
-    // http://localhost:8090/client?clientId=2&new_age=34 (pentru a testa patch)
-    @PatchMapping
-    public void patchClient(@RequestParam Integer clientId, @RequestParam Integer new_age) {
-        clientService.patchClient(clientId, new_age);
     }
 
     @DeleteMapping("/{clientId}")
