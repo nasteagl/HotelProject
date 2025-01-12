@@ -19,6 +19,8 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+
+
     @GetMapping
     public ResponseEntity<List<Client>> getClients() {
         return new ResponseEntity<>(clientService.getClients(), HttpStatus.OK);
