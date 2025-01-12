@@ -6,46 +6,47 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="client")
+@Table(name="client", schema = "hotel_schema")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "clientId")
-    private int clientId;
+    @Column(name = "client_id")
+    private int client_id;
 
-    @Column(name = "firstname", length = 50, nullable = false)
+    @Column(name = "client_first_name", length = 50, nullable = false)
     private String firstname;
 
-    @Column(name = "lastname", length = 50, nullable = false)
+    @Column(name = "client_last_name", length = 50, nullable = false)
     private String lastname;
 
-    @Column(name = "age")
+    @Column(name = "client_age", nullable = false)
     private int age;
 
-    @Column(name = "nr_pers")
+    @Column(name = "client_nr_pers", nullable = false)
     private int nr_pers;
 
-    @Column(name = "checkin")
+    @Column(name = "client_check_in", nullable = false)
     private String checkin;
 
-    @Column(name = "checkout")
+    @Column(name = "client_check_out", nullable = false)
     private String checkout;
 
-    @Column(name = "phone_number", length = 50)
+    @Column(name = "client_phone_number", length = 50, nullable = false)
     private String phone_number;
 
-    @Column(name = "email", length = 50)
+    @Column(name = "client_email", length = 50, nullable = false)
     private String email;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="hotel_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="client_hotel_id")
     private Hotel hotel;
 
     public Client(ClientBuilder builder) {
-        this.clientId = builder.clientId;
+        this.client_id = builder.client_id;
         this.firstname = builder.firstname;
         this.lastname = builder.lastname;
         this.age = builder.age;
@@ -54,10 +55,11 @@ public class Client {
         this.checkout = builder.checkout;
         this.email = builder.email;
         this.phone_number = builder.phone_number;
+        this.hotel = builder.hotel;
     }
 
     public static class ClientBuilder {
-        private int clientId;
+        private int client_id;
         private String firstname;
         private String lastname;
         private int age;
@@ -66,10 +68,11 @@ public class Client {
         private String checkout;
         private String email;
         private String phone_number;
+        public Hotel hotel;
 
 
-        public ClientBuilder setClientId(int clientId) {
-            this.clientId = clientId;
+        public ClientBuilder setClientId(int client_id) {
+            this.client_id = client_id;
             return this;
         }
 
@@ -114,10 +117,16 @@ public class Client {
             return this;
         }
 
-        public ClientBuilder setPhoneNumber(String phone_number) {
+        public ClientBuilder setHotel(String phone_number) {
             this.phone_number = phone_number;
             return this;
         }
+
+        public ClientBuilder setHotel(Hotel hotel) {
+            this.hotel = hotel;
+            return this;
+        }
+
 
         public Client build() {
             return new Client(this);
