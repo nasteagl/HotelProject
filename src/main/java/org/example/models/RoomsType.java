@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "rooms_type") //num tab in baza de date
+@Table(name = "rooms_type", schema = "hotel_schema") //num tab in baza de date
 public class RoomsType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_rooms_type")
+    @Column(name = "rooms_type_id")
     private int idRoomsType;
 
     public enum RoomTypes {
@@ -27,22 +27,21 @@ public class RoomsType {
     }
 
     @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
-    @Column(name = "current_type", nullable = false)
+    @Column(name = "rooms_type_current_type", nullable = false)
     private RoomTypes roomType;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="id_room")
+    @JoinColumn(name="rooms_type_room_id")
     private Room room;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private Hotel hotel;
 
     public RoomsType(RoomTypeBuilder builder) {
         this.roomType = builder.roomType;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-
-    @JoinColumn(name = "hotel_id", nullable = false)
-    private Hotel hotel;
     public static class RoomTypeBuilder {
         private RoomTypes roomType;
 
@@ -51,9 +50,7 @@ public class RoomsType {
             return this;
         }
 
-        public RoomsType build() {
-            return new RoomsType(this);
-        }
+        public RoomsType build() { return new RoomsType(this); }
     }
 
 }

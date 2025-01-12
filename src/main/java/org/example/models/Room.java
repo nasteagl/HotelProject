@@ -1,41 +1,40 @@
 package org.example.models;
-import java.util.*;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="room")
+@Table(name="room", schema = "hotel_schema")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room{
-//adddaddd
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incrementareee
-    @Column(name="id_room")
+    @Column(name="room_id")
     private int id_room;
 
-    @Column(name="floor", nullable = false)
+    @Column(name="room_floor", nullable = false)
     private int floor;
 
-    @Column(name="number", nullable = false, unique = true)
+    @Column(name="room_number", nullable = false, unique = true)
     private int number;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "room_price", nullable = false)
     private int price;
 
-    @Column(name="beds", nullable = false)
+    @Column(name="room_beds", nullable = false)
     private int beds;
 
-    @Column(name="reserved", nullable = false)
+    @Column(name="room_reserved", nullable = false)
     private boolean reserved;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="id_rooms_type")
+    @JoinColumn(name="room_rooms_type_id")
     private RoomsType roomType;
-
 
     public Room(RoomBuilder builder){
         this.id_room=builder.id_room;
@@ -103,17 +102,5 @@ public class Room{
         public Room build() {
             return new Room(this);
         }
-    }
-
-
-    @OneToMany(mappedBy = "room")
-    private Collection<RoomsType> roomsType;
-
-    public Collection<RoomsType> getRoomsType() {
-        return roomsType;
-    }
-
-    public void setRoomsType(Collection<RoomsType> roomsType) {
-        this.roomsType = roomsType;
     }
 }
