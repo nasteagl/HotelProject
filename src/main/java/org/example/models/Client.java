@@ -1,46 +1,38 @@
-package org.example;
+package org.example.models;
 
-import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-
-@Table(name="Client")
+@Table(name="client")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clientId")
     private int clientId;
 
     @Column(name = "firstname", length = 50, nullable = false)
     private String firstname;
 
-    @Column(name = "secondname", length = 50, nullable = false)
+    @Column(name = "lastname", length = 50, nullable = false)
     private String lastname;
 
     @Column(name = "age")
     private int age;
 
-    @Column(name = "persons")
-    private int persons;
+    @Column(name = "nr_pers")
+    private int nr_pers;
 
-    @Column(name = "adult_persons")
-    private int adult_persons;
+    @Column(name = "checkin")
+    private String checkin;
 
-    @Column(name = "children_persons")
-    private int children_persons;
-
-    @Column(name = "checkin", nullable = false)
-    private Date checkin;
-
-    @Column(name = "checkout", nullable = false)
-    private Date checkout;
+    @Column(name = "checkout")
+    private String checkout;
 
     @Column(name = "phone_number", length = 50)
     private String phone_number;
@@ -52,12 +44,12 @@ public class Client {
     @JoinColumn(name="hotel_id")
     private Hotel hotel;
 
-    private Client(ClientBuilder builder) {
+    public Client(ClientBuilder builder) {
         this.clientId = builder.clientId;
         this.firstname = builder.firstname;
         this.lastname = builder.lastname;
         this.age = builder.age;
-        this.persons = builder.persons;
+        this.nr_pers = builder.nr_pers;
         this.checkin = builder.checkin;
         this.checkout = builder.checkout;
         this.email = builder.email;
@@ -70,9 +62,9 @@ public class Client {
         private String firstname;
         private String lastname;
         private int age;
-        private int persons;
-        private Date checkin;
-        private Date checkout;
+        private int nr_pers;
+        private String checkin;
+        private String checkout;
         private String email;
         private String phone_number;
         public Hotel hotel;
@@ -101,20 +93,20 @@ public class Client {
             return this;
         }
 
-        public ClientBuilder setNrPers(int persons) {
-            if (persons < 0) {
+        public ClientBuilder setNrPers(int nr_pers) {
+            if (nr_pers < 0) {
                 throw new IllegalArgumentException("Persons cannot be negative");
             }
-            this.persons = persons;
+            this.nr_pers = nr_pers;
             return this;
         }
 
-        public ClientBuilder setCheckin(Date checkin) {
+        public ClientBuilder setCheckin(String checkin) {
             this.checkin = checkin;
             return this;
         }
 
-        public ClientBuilder setCheckout(Date checkout) {
+        public ClientBuilder setCheckout(String checkout) {
             this.checkout = checkout;
             return this;
         }

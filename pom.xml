@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hotel</groupId>
+    <groupId>org.example</groupId>
     <artifactId>hotel</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
@@ -19,6 +19,9 @@
     -->
     <properties>
         <java.version>17</java.version>
+        <flyway-db.user>postgres</flyway-db.user>
+        <flyway-db.password>1111</flyway-db.password>
+        <flyway-db.url>jdbc:postgresql://localhost:5432/hotel_booking</flyway-db.url>
     </properties>
 
     <dependencies>
@@ -29,10 +32,10 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -55,11 +58,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-test</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,18 +89,19 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>9.16.3</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-database-postgresql</artifactId>-->
+<!--            <version>11.1.0</version>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -119,9 +123,13 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>9.16.3</version>
                 <configuration>
-                    <url>jdbc:postgresql://localhost:5432/postgres</url>
-                    <user>postgres</user>
-                    <password>1111</password>
+                    <url>${flyway-db.url}</url>
+                    <user>${flyway-db.user}</user>
+                    <password>${flyway-db.password}</password>
+
+                    <schemas>
+                        <schema>hotel</schema>
+                    </schemas>
                 </configuration>
             </plugin>
         </plugins>

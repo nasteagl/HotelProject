@@ -1,4 +1,4 @@
-package org.example;
+package org.example.models;
 import java.util.*;
 
 import jakarta.persistence.*;
@@ -14,10 +14,11 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Component
 public class Hotel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_id")
     private int hotel_id;
 
@@ -42,6 +43,7 @@ public class Hotel {
     public Hotel(Client client) {
         this.client = client;
     }
+
 
     public Hotel(HotelBuilder builder) {
         this.hotel_id = builder.hotel_id;
@@ -93,5 +95,6 @@ public class Hotel {
             return new Hotel(this);
         }
     }
+
 
 }

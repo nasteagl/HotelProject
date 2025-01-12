@@ -1,4 +1,4 @@
-package org.example;
+package org.example.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,12 +17,6 @@ public class RoomsType {
     @Column(name = "id_rooms_type")
     private int idRoomsType;
 
-    @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
-    @Column(name = "room_type", nullable = false)
-    private RoomTypes roomType;
-
-
-
     public enum RoomTypes {
         Standart,
         DoubleBed,
@@ -31,6 +25,14 @@ public class RoomsType {
         FamilyRoom,
         PresidentialSuite
     }
+
+    @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
+    @Column(name = "current_type", nullable = false)
+    private RoomTypes roomType;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="id_room")
+    private Room room;
 
 
     public RoomsType(RoomTypeBuilder builder) {
