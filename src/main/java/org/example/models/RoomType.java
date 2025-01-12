@@ -10,25 +10,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "rooms_type", schema = "hotel_schema") //num tab in baza de date
-public class RoomsType {
+public class RoomType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rooms_type_id")
     private int idRoomsType;
 
-    public enum RoomTypes {
-        Standart,
-        DoubleBed,
-        SingleBed,
-        Penthouse,
-        FamilyRoom,
-        PresidentialSuite
-    }
+
+//    public enum RoomTypes {
+//        Standart,
+//        DoubleBed,
+//        SingleBed,
+//        Penthouse,
+//        FamilyRoom,
+//        PresidentialSuite
+//    }
 
     @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
-    @Column(name = "rooms_type_current_type", nullable = false)
-    private RoomTypes roomType;
+    private RoomTypeEnum roomsTypeEnum;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="rooms_type_room_id")
@@ -38,19 +38,19 @@ public class RoomsType {
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
-    public RoomsType(RoomTypeBuilder builder) {
-        this.roomType = builder.roomType;
+    public RoomType(RoomTypeBuilder builder) {
+        this.roomsTypeEnum = builder.roomsTypeEnum;
     }
 
     public static class RoomTypeBuilder {
-        private RoomTypes roomType;
+        private RoomTypeEnum roomsTypeEnum;
 
-        public RoomTypeBuilder roomTypeBuilder(RoomTypes roomType) {
-            this.roomType = roomType;
+        public RoomTypeBuilder roomTypeBuilder(RoomTypeEnum roomsTypeEnum) {
+            this.roomsTypeEnum=roomsTypeEnum;
             return this;
         }
 
-        public RoomsType build() { return new RoomsType(this); }
+        public RoomType build() { return new RoomType(this); }
     }
 
 }

@@ -1,14 +1,29 @@
 package org.example.services;
 
-import org.example.repositories.RoomsTypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.models.RoomType;
+import org.example.repositories.RoomTypeRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RoomTypeService {
-    public RoomsTypeRepository roomTypeRepository;
-    @Autowired
-    public RoomTypeService(RoomsTypeRepository roomTypeRepository) {
+    public RoomTypeRepository roomTypeRepository;
+
+    public RoomTypeService(RoomTypeRepository roomTypeRepository) {
         this.roomTypeRepository = roomTypeRepository;
     }
+
+    public List<RoomType> getAllRoomTypes() {
+        return roomTypeRepository.findAll();
+    }
+
+    public RoomType getRoomTypeById(Integer roomTypeId) {
+        return roomTypeRepository.findById(roomTypeId).orElse(null);
+    }
+
+    public RoomType addRoomType(RoomType roomType) {
+        return roomTypeRepository.save(roomType);
+    }
+
 }

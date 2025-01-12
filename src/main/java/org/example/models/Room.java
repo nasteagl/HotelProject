@@ -34,7 +34,7 @@ public class Room{
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="room_rooms_type_id")
-    private RoomsType roomType;
+    private RoomType roomType;
 
     public Room(RoomBuilder builder){
         this.id_room=builder.id_room;
