@@ -3,22 +3,16 @@ package org.example.services;
 import org.example.models.Client;
 import org.springframework.stereotype.Service;
 import org.example.repositories.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class ClientService {
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
-//    @Autowired
-//    public ClientService(ClientRepository clientRepository) {
-//        this.clientRepository = clientRepository;
-//    }
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     public List<Client> getClients() {
         return clientRepository.findAll();

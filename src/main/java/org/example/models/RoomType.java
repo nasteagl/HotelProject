@@ -17,36 +17,26 @@ public class RoomType {
     @Column(name = "rooms_type_id")
     private int idRoomsType;
 
-
-//    public enum RoomTypes {
-//        Standart,
-//        DoubleBed,
-//        SingleBed,
-//        Penthouse,
-//        FamilyRoom,
-//        PresidentialSuite
-//    }
-
     @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
-    private RoomTypeEnum roomsTypeEnum;
+    private RoomTypeEnum roomTypeEnum;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="rooms_type_room_id")
     private Room room;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "hotel_id", nullable = false)
+    @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
     public RoomType(RoomTypeBuilder builder) {
-        this.roomsTypeEnum = builder.roomsTypeEnum;
+        this.roomTypeEnum = builder.roomTypeEnum;
     }
 
     public static class RoomTypeBuilder {
-        private RoomTypeEnum roomsTypeEnum;
+        private RoomTypeEnum roomTypeEnum;
 
-        public RoomTypeBuilder roomTypeBuilder(RoomTypeEnum roomsTypeEnum) {
-            this.roomsTypeEnum=roomsTypeEnum;
+        public RoomTypeBuilder roomTypeBuilder(RoomTypeEnum roomTypeEnum) {
+            this.roomTypeEnum = roomTypeEnum;
             return this;
         }
 

@@ -8,7 +8,8 @@ import java.util.List;
 
 @Service
 public class RoomTypeService {
-    public RoomTypeRepository roomTypeRepository;
+
+    private final RoomTypeRepository roomTypeRepository;
 
     public RoomTypeService(RoomTypeRepository roomTypeRepository) {
         this.roomTypeRepository = roomTypeRepository;
@@ -25,5 +26,4 @@ public class RoomTypeService {
     public RoomType addRoomType(RoomType roomType) {
         return roomTypeRepository.save(roomType);
     }
-
 }
