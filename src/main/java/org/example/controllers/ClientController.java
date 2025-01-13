@@ -35,18 +35,30 @@ public class ClientController {
     }
 
     @PostMapping
-    public void addClient(@RequestBody Client client) {
+    public ResponseEntity<Client> addClient(@RequestBody Client client) {
         clientService.addClient(client);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping
-    public void updateClient(@RequestBody Client client) {
-        clientService.updateClient(client);
+    public ResponseEntity<Client> updateClient(@RequestBody Client client) {
+        if (client != null) {
+            clientService.updateClient(client);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{clientId}")
-    public void deleteClient(@PathVariable Integer clientId) {
-        clientService.deleteClient(clientId);
+    public ResponseEntity<Client> deleteClient(@PathVariable Integer clientId) {
+        Client client = clientService.getClient(clientId);
+        if (client != null) {
+            clientService.deleteClient(clientId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 

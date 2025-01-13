@@ -30,14 +30,14 @@ public class ClientService {
         clientRepository.save(client); // daca exista el va schimba
     }
 
-    public void patchClient(Integer clientId, Integer new_age) {
-        clientRepository.findById(clientId).ifPresent(client -> {client.setAge(new_age);});
-    }
-
     public void deleteClient(Integer clientId) {
         clientRepository.deleteById(clientId);
     }
 
+//    Pentru @PatchMapping
+//    public void patchClient(Integer clientId, Integer new_age) {
+//        clientRepository.findById(clientId).ifPresent(client -> {client.setAge(new_age);});
+//    }
 
 //    Veriunea cu lista, inainte de a conecta cu repositoriu (pentru experimente)
 
@@ -66,6 +66,7 @@ public class ClientService {
 //    public void updateClient(Client client) {
 //        clients.set(clients.get(client.getClientId() - 1).getClientId() - 1, client);
 //    }
+//
 //
 //    public void patchClient(Integer clientId, Integer new_age) {
 //        clients.get(clients.get(clientId - 1).getClientId() - 1).setAge(new_age);

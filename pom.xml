@@ -22,6 +22,7 @@
         <flyway-db.user>postgres</flyway-db.user>
         <flyway-db.password>1111</flyway-db.password>
         <flyway-db.url>jdbc:postgresql://localhost:5432/hotel_booking</flyway-db.url>
+        <flyway-db.schema>hotel-schema</flyway-db.schema>
     </properties>
 
     <dependencies>
@@ -121,10 +122,10 @@
                     <url>${flyway-db.url}</url>
                     <user>${flyway-db.user}</user>
                     <password>${flyway-db.password}</password>
-                    <defaultSchema>hotel_schema</defaultSchema>
                     <schemas>
-                        <schema>hotel_schema</schema>
+                        <schema>${flyway-db.schema}</schema>
                     </schemas>
+                    <defaultSchema>${flyway-db.schema}</defaultSchema>
                 </configuration>
             </plugin>
         </plugins>
