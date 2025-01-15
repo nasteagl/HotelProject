@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.example.enums.RoomTypeEnum;
 
 @Data
 @AllArgsConstructor
