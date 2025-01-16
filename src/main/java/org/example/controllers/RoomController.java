@@ -1,8 +1,12 @@
 package org.example.controllers;
 
 
+import org.example.dto.ClientDto;
+import org.example.dto.RoomDto;
 import org.example.models.Room;
 import org.example.services.RoomService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -18,13 +22,18 @@ public class RoomController {
  }
 
     @GetMapping
-    public List<Room> getRooms() {
-        return roomService.getRooms();
+    public ResponseEntity<List<RoomDto>> getRooms() {
+        return new ResponseEntity<>(roomService.getAllRooms(),HttpStatus.OK);
     }
 
     @GetMapping("/{roomId}")
-    public Room getRoomById(@PathVariable Integer roomId) {
-        return roomService.getRoomById(roomId);
+    public ResponseEntity<RoomDto> getRoomById(@PathVariable Integer roomId) {
+        RoomDto room = roomService.getRoomById(roomId);
+        if(room != null){
+            return new ResponseEntity<>(room,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping

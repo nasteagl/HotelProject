@@ -23,7 +23,7 @@ public class RoomTypeService {
         return roomTypeRepository.findById(roomTypeId).orElse(null);
     }
 
-    public RoomType addRoomType(RoomType roomType) {
-        return roomTypeRepository.save(roomType);
+    public void addRoomType(RoomType roomType) {
+        roomTypeRepository.save(roomType);
     }
 }

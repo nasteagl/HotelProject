@@ -1,33 +1,41 @@
 package org.example.services;
 
-import org.example.controllers.RoomController;
-import org.example.models.Client;
+import org.example.dto.RoomDto;
+
 import org.example.models.Room;
 import org.example.repositories.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
-    @Autowired
-    public RoomRepository roomRepository;
-//
-//
 
-//    @Autowired
-//    public RoomService(RoomRepository roomRepository) {
-//        this.roomRepository = roomRepository;
+    private final RoomRepository roomRepository;
+    private final ModelMapper modelMapper;
+
+    public RoomService(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+        this.modelMapper = new ModelMapper();
+    }
+
+
+    public List<RoomDto> getAllRooms() {
+        return roomRepository.findAll()
+                .stream()
+                .map(room -> modelMapper.map(room, RoomDto.class)).collect(Collectors.toList());
+    }
+
+//    public List<Room> getRooms() {
+//        return roomRepository.findAll();
 //    }
-//
-    public List<Room> getRooms() {
-        return roomRepository.findAll();
+ ///Metoda cu clasa RoomDto
+    public RoomDto getRoomById(Integer roomId) {
+        return modelMapper.map(roomRepository.findById((roomId)), RoomDto.class);
     }
 
-    public Room getRoomById(Integer roomId) {
-        return roomRepository.findById(roomId).orElse(null);
-    }
 
     public void addRoom(Room room) {
         roomRepository.save(room);
@@ -42,6 +50,18 @@ public class RoomService {
 
 //    public void patchRoom(Integer roomId, Integer new_roomType) {
 //        roomRepository.findById(roomId).ifPresent(room -> {room.setRoomType(new_roomType);})
+//    }
+//    public List<RoomDto> getRooms() {
+//        return roomRepository.findAll()
+//                .stream()
+//                .map(room -> new RoomDto(
+//                        room.getId_room(),
+//                        room.getFloor(),
+//                        room.getNumber(),
+//                        room.getPrice(),
+//                        room.getBeds(),
+//                        room.isReserved()
+//                )).collect(Collectors.toList());
 //    }
 
 
