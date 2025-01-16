@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.example.enums.RoomTypeEnum;
 
 @Entity
 @Table(name="room", schema = "hotel_schema")
@@ -31,6 +32,9 @@ public class Room{
 
     @Column(name="room_reserved", nullable = false)
     private boolean reserved;
+
+    @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
+    private RoomTypeEnum roomTypeEnum;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="room_rooms_type_id")

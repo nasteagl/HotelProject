@@ -1,7 +1,7 @@
 package org.example.enums;
 
 public enum RoomTypeEnum {
-    Standart,
+    Standard,
     DoubleBed,
     SingleBed,
     Penthouse,

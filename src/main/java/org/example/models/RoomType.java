@@ -1,5 +1,6 @@
 package org.example.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -18,9 +19,6 @@ public class RoomType {
     @Column(name = "rooms_type_id")
     private int idRoomsType;
 
-    @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
-    private RoomTypeEnum roomTypeEnum;
-
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="rooms_type_room_id")
     private Room room;
@@ -29,19 +27,19 @@ public class RoomType {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    public RoomType(RoomTypeBuilder builder) {
-        this.roomTypeEnum = builder.roomTypeEnum;
-    }
-
-    public static class RoomTypeBuilder {
-        private RoomTypeEnum roomTypeEnum;
-
-        public RoomTypeBuilder roomTypeBuilder(RoomTypeEnum roomTypeEnum) {
-            this.roomTypeEnum = roomTypeEnum;
-            return this;
-        }
-
-        public RoomType build() { return new RoomType(this); }
-    }
+//    public RoomType(RoomTypeBuilder builder) {
+//        this.roomTypeEnum = builder.roomTypeEnum;
+//    }
+//
+//    public static class RoomTypeBuilder {
+//        private RoomTypeEnum roomTypeEnum;
+//
+//        public RoomTypeBuilder roomTypeBuilder(RoomTypeEnum roomTypeEnum) {
+//            this.roomTypeEnum = roomTypeEnum;
+//            return this;
+//        }
+//
+//        public RoomType build() { return new RoomType(this); }
+//    }
 
 }
