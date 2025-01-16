@@ -52,6 +52,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{clientId}")
+
     public ResponseEntity<ClientDto> deleteClient(@PathVariable Integer clientId) {
         ClientDto client = clientService.getClient(clientId);
         if (client != null) {
