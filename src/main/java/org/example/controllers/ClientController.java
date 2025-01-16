@@ -1,5 +1,6 @@
 package org.example.controllers;
 
+import org.example.dto.ClientDto;
 import org.example.services.ClientService;
 import org.example.models.Client;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin // daca candva vom conecta cu front sa nu apara probleme
-@RequestMapping("/client")
+@RequestMapping("/api/client")
 public class ClientController {
 
     private final ClientService clientService;
@@ -20,13 +21,13 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> getClients() {
+    public ResponseEntity<List<ClientDto>> getClients() {
         return new ResponseEntity<>(clientService.getClients(), HttpStatus.OK);
     }
 
     @GetMapping("/{clientId}")
-    public ResponseEntity<Client> getClient(@PathVariable Integer clientId) {
-        Client client = clientService.getClient(clientId);
+    public ResponseEntity<ClientDto> getClient(@PathVariable Integer clientId) {
+        ClientDto client = clientService.getClient(clientId);
         if (client != null) {
             return new ResponseEntity<>(client, HttpStatus.OK);
         } else {
@@ -51,8 +52,9 @@ public class ClientController {
     }
 
     @DeleteMapping("/{clientId}")
-    public ResponseEntity<Client> deleteClient(@PathVariable Integer clientId) {
-        Client client = clientService.getClient(clientId);
+
+    public ResponseEntity<ClientDto> deleteClient(@PathVariable Integer clientId) {
+        ClientDto client = clientService.getClient(clientId);
         if (client != null) {
             clientService.deleteClient(clientId);
             return new ResponseEntity<>(HttpStatus.OK);
