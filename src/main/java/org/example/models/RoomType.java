@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.example.enums.RoomTypeEnum;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,27 +21,9 @@ public class RoomType {
     @Column(name = "rooms_type_id")
     private int idRoomsType;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="rooms_type_room_id")
-    private Room room;
+    @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
+    private RoomTypeEnum roomTypeEnum;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
-
-//    public RoomType(RoomTypeBuilder builder) {
-//        this.roomTypeEnum = builder.roomTypeEnum;
-//    }
-//
-//    public static class RoomTypeBuilder {
-//        private RoomTypeEnum roomTypeEnum;
-//
-//        public RoomTypeBuilder roomTypeBuilder(RoomTypeEnum roomTypeEnum) {
-//            this.roomTypeEnum = roomTypeEnum;
-//            return this;
-//        }
-//
-//        public RoomType build() { return new RoomType(this); }
-//    }
-
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "roomType", orphanRemoval = true)
+    private List<Room> rooms;
 }

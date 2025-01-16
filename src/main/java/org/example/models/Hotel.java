@@ -6,11 +6,14 @@ import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Table(name = "hotel", schema = "hotel_schema")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Hotel {
 
     @Id
@@ -33,59 +36,9 @@ public class Hotel {
     @Column(name = "hotel_email", nullable = false, length = 100)
     private String hotelEmail;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "hotel")
-    private Client client;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = true)
+    private List<Client> clients;
 
-    public Hotel(HotelBuilder builder) {
-        this.hotel_id = builder.hotel_id;
-        this.hotelAddress = builder.hotelAddress;
-        this.hotelCity = builder.hotelCity;
-        this.hotelCountry = builder.hotelCountry;
-        this.hotelPhone = builder.hotelPhone;
-        this.hotelEmail = builder.hotelEmail;
-    }
-
-
-    public static class HotelBuilder{
-        private int hotel_id;
-        private String hotelAddress;
-        private String hotelCity;
-        private String hotelCountry;
-        private String hotelPhone;
-        private String hotelEmail;
-
-
-        public HotelBuilder hotel_id(int hotel_id) {
-            if(hotel_id < 0) {
-                throw new IllegalArgumentException("Invalid hotel id");
-            }
-            this.hotel_id = hotel_id;
-            return this;
-        }
-        public HotelBuilder hotelAddress(String hotelAddress) {
-            this.hotelAddress = hotelAddress;
-            return this;
-        }
-        public HotelBuilder hotelCity(String hotelCity) {
-            this.hotelCity = hotelCity;
-            return this;
-        }
-        public HotelBuilder hotelCountry(String hotelCountry) {
-            this.hotelCountry = hotelCountry;
-            return this;
-        }
-        public HotelBuilder hotelPhone(String hotelPhone) {
-            this.hotelPhone = hotelPhone;
-            return this;
-        }
-        public HotelBuilder hotelEmail(String hotelEmail) {
-            this.hotelEmail = hotelEmail;
-            return this;
-        }
-        public Hotel build(){
-            return new Hotel(this);
-        }
-    }
-
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = true)
+    private List<Room> rooms;
 }
