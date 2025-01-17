@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import java.lang.*;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hotel_id")
-    private int hotel_id;
+    private Integer hotel_id;
 
     @Column(name = "hotel_address", nullable = false, length = 100)
     private String hotelAddress;
@@ -35,10 +36,10 @@ public class Hotel {
 
     @Column(name = "hotel_email", nullable = false, length = 100)
     private String hotelEmail;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = true)
-    private List<Client> clients;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = true)
-    private List<Room> rooms;
+//
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = false)
+//    private List<Client> clients;
+//
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = false)
+//    private List<Room> rooms;
 }

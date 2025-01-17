@@ -18,7 +18,8 @@ public class ClientDto {
 
     /*
     TODO: metode statice Dto -> Entity
-    TODO: Press F for modelMapper o7
+    TODO: de reparat logica -> DONE
+    TODO: modelMapper o7
     TODO: Toate layere sa foloseasca Dto
     TODO: De terminat Busness logica pentru CRUD + patch (pentru fiecare camp)
     TODO: (punishment) In loc de JpaRepository sa utilizam EntityManager

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import java.lang.*;
 
 import java.util.Date;
 
@@ -20,7 +21,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "client_id")
-    private int client_id;
+    private Integer client_id;
 
     @Column(name = "client_first_name", length = 50, nullable = false)
     private String firstname;
@@ -29,10 +30,10 @@ public class Client {
     private String lastname;
 
     @Column(name = "client_age", nullable = false)
-    private int age;
+    private Integer age;
 
     @Column(name = "client_nr_pers", nullable = false)
-    private int nr_pers;
+    private Integer nr_pers;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     @Column(name = "client_check_in", nullable = false)

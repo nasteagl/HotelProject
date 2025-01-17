@@ -3,6 +3,10 @@ package org.example.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.models.Client;
+import org.example.models.Room;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,4 +18,6 @@ public class HotelDto {
     private String hotelCountry;
     private String hotelPhone;
     private String hotelEmail;
+    private List<Client> clients;
+    private List<Room> rooms;
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import java.lang.*;
 import org.example.enums.RoomTypeEnum;
 
 @Entity
@@ -18,19 +19,19 @@ public class Room{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incrementareee
     @Column(name="room_id")
-    private int id_room;
+    private Integer id_room;
 
     @Column(name="room_floor", nullable = false)
-    private int floor;
+    private Integer floor;
 
     @Column(name="room_number", nullable = false, unique = true)
-    private int number;
+    private Integer number;
 
     @Column(name = "room_price", nullable = false)
-    private int price;
+    private Integer price;
 
     @Column(name="room_beds", nullable = false)
-    private int beds;
+    private Integer beds;
 
     @Column(name="room_reserved", nullable = false)
     private boolean reserved;
