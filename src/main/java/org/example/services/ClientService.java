@@ -14,26 +14,27 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     public List<ClientDto> getClients() {
-        return clientRepository.findAll()
+        return clientRepository.findAllClients()
                 .stream()
                 .map(ClientDto::fromClient) // obj -> ClientDto.fromClient(obj)
                 .toList();
     }
 
     public ClientDto getClient(Integer clientId) {
-        Client client = clientRepository.findById(clientId).orElse(null);
+        Client client = clientRepository.findByIdClient(clientId);
         if (null == client) {
             return null;
         } else {
             return ClientDto.fromClient(client);
         }
     }
+
     public void addClient(ClientDto client) {
-        clientRepository.save(ClientDto.fromClientDto(client));
+        clientRepository.saveClient(ClientDto.fromClientDto(client));
     }
 
     public void updateClient(ClientDto client) {
-        clientRepository.save(ClientDto.fromClientDto(client));
+        clientRepository.updateClient(ClientDto.fromClientDto(client));
     }
 
     public void deleteClient(Integer clientId) {
@@ -41,7 +42,7 @@ public class ClientService {
     }
 
     public void patchClient(Integer clientId, ClientDto clientDto) {
-        Client client = clientRepository.findById(clientId).get();
+        Client client = clientRepository.findByIdClient(clientId);
 
         if (clientDto.getFirstname() != null && !clientDto.getFirstname().isEmpty()) {
             client.setFirstname(clientDto.getFirstname());
@@ -67,6 +68,6 @@ public class ClientService {
         if (clientDto.getEmail() != null && !clientDto.getEmail().isEmpty()) {
             client.setEmail(clientDto.getEmail());
         }
-        clientRepository.save(client);
+        clientRepository.updateClient(client);
     }
 }
