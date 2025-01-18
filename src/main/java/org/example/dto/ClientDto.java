@@ -61,7 +61,7 @@ public class ClientDto {
         TODO: Toate layere sa foloseasca Dto (Client +, Hotel, Room + , RoomType + ) ->
 
 
-         
+
         TODO: metode statice Dto -> Entity (Client, Hotel ++ : Room + , RoomType + )  -> DONE
         TODO: modelMapper o7 -> DONE
         TODO: de reparat logica -> DONE
