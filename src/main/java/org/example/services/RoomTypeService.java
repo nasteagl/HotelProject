@@ -1,19 +1,16 @@
 package org.example.services;
 
+import lombok.RequiredArgsConstructor;
 import org.example.models.RoomType;
 import org.example.repositories.RoomTypeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class RoomTypeService {
-
     private final RoomTypeRepository roomTypeRepository;
-
-    public RoomTypeService(RoomTypeRepository roomTypeRepository) {
-        this.roomTypeRepository = roomTypeRepository;
-    }
 
     public List<RoomType> getAllRoomTypes() {
         return roomTypeRepository.findAll();
