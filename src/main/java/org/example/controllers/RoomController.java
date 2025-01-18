@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.RoomDto;
 import org.example.models.Room;
 import org.example.services.RoomService;
 import org.springframework.http.HttpStatus;
@@ -16,13 +17,13 @@ import java.util.List;
     private final  RoomService roomService;
 
     @GetMapping
-    public ResponseEntity<List<Room>> getRooms() {
+    public ResponseEntity<List<RoomDto>> getRooms() {
         return new ResponseEntity<>(roomService.getAllRooms(),HttpStatus.OK);
     }
 
     @GetMapping("/{roomId}")
-    public ResponseEntity<Room> getRoomById(@PathVariable Integer roomId) {
-        Room room = roomService.getRoomById(roomId);
+    public ResponseEntity<RoomDto> getRoomById(@PathVariable Integer roomId) {
+        RoomDto room = roomService.getRoomById(roomId);
         if(room != null){
             return new ResponseEntity<>(room,HttpStatus.OK);
         }else{
@@ -31,19 +32,38 @@ import java.util.List;
     }
 
     @PostMapping
-    public void addRoom(@RequestBody Room room){
+    public void addRoom(@RequestBody RoomDto room){
      roomService.addRoom(room);
     }
 
     @PutMapping
-    public void updateRoom(@RequestBody Room room){
+    public void updateRoom(@RequestBody RoomDto room){
      roomService.updateRoom(room);
     }
 
-    @DeleteMapping("/{roomId}/")
-    public void deleteRoomById(@PathVariable Integer roomId) {
-     roomService.deleteRoom(roomId);
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<RoomDto> deleteRoomById(@PathVariable Integer roomId) {
+        RoomDto room = roomService.getRoomById(roomId);
+        if (room != null) {
+            roomService.deleteRoom(roomId);
+            return new ResponseEntity<>(room,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+
+    @PatchMapping("/{roomId}")
+    public ResponseEntity<RoomDto> patchRoom(@PathVariable Integer roomId,@RequestBody RoomDto roomBody){
+        RoomDto roomDto=roomService.getRoomById(roomId);
+        if(roomDto != null){
+            roomService.patchRoom(roomId,roomBody);
+            return new ResponseEntity<>(roomDto,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 
 }
 
