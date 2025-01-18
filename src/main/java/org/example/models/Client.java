@@ -32,19 +32,19 @@ public class Client {
     @Column(name = "client_age", nullable = false)
     private Integer age;
 
-    @Column(name = "client_nr_pers", nullable = false)
-    private Integer nr_pers;
+    @Column(name = "client_nr_persons", nullable = false)
+    private Integer nrPersons;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     @Column(name = "client_check_in", nullable = false)
-    private Date checkin;
+    private Date checkIn;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     @Column(name = "client_check_out", nullable = false)
-    private Date checkout;
+    private Date checkOut;
 
     @Column(name = "client_phone_number", length = 50, nullable = false)
-    private String phone_number;
+    private String phoneNumber;
 
     @Column(name = "client_email", length = 50, nullable = false)
     private String email;

@@ -34,7 +34,7 @@ public class Room{
     private Integer beds;
 
     @Column(name="room_reserved", nullable = false)
-    private boolean reserved;
+    private Boolean reserved;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="rooms_type_id")

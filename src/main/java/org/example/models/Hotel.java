@@ -36,10 +36,10 @@ public class Hotel {
 
     @Column(name = "hotel_email", nullable = false, length = 100)
     private String hotelEmail;
-//
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = false)
-//    private List<Client> clients;
-//
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = false)
-//    private List<Room> rooms;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = true)
+    private List<Client> clients;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "hotel", orphanRemoval = true)
+    private List<Room> rooms;
 }
