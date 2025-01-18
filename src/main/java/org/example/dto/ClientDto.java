@@ -57,10 +57,12 @@ public class ClientDto {
         TODO: OOOOOOOOO: De creat package Test (H2 database in-memory, JUnit, Mockito) pentru toate trei layere
         TODO: (TODO = hint) JUnit5, Mockito ultimul, stari de testare (actual/expected), pentru H2 si testing (anotari)
 
-        TODO: De terminat Busness logica pentru CRUD + patch (pentru fiecare camp) (Client +, Hotel, Room, RoomType ---)
-        TODO: Toate layere sa foloseasca Dto (Client +, Hotel, Room, RoomType ---)
-        TODO: metode statice Dto -> Entity (Client, Hotel ++ : Room, RoomType --)
+        TODO: De terminat Busness logica pentru CRUD + patch (pentru fiecare camp) (Client +, Hotel, Room +, RoomType  + )
+        TODO: Toate layere sa foloseasca Dto (Client +, Hotel, Room + , RoomType + ) ->
 
+
+         
+        TODO: metode statice Dto -> Entity (Client, Hotel ++ : Room + , RoomType + )  -> DONE
         TODO: modelMapper o7 -> DONE
         TODO: de reparat logica -> DONE
     */

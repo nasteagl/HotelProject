@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import java.lang.*;
-import org.example.enums.RoomTypeEnum;
 
 @Entity
 @Table(name="room", schema = "hotel_schema")

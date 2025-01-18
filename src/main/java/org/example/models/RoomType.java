@@ -2,6 +2,7 @@ package org.example.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "rooms_type", schema = "hotel_schema") //num tab in baza de date
 public class RoomType {
@@ -25,6 +27,6 @@ public class RoomType {
     @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
     private RoomTypeEnum roomTypeEnum;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "roomType", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "roomType", orphanRemoval = false)
     private List<Room> rooms;
 }
