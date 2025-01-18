@@ -25,6 +25,6 @@ public class RoomType {
     @Enumerated(EnumType.STRING) //  enum-ul va fi salvat ca string
     private RoomTypeEnum roomTypeEnum;
 
-//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "roomType", orphanRemoval = false)
-//    private List<Room> rooms;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "roomType", orphanRemoval = true)
+    private List<Room> rooms;
 }
