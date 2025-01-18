@@ -1,34 +1,28 @@
 package org.example.controllers;
 
-
-import org.example.dto.ClientDto;
-import org.example.dto.RoomDto;
+import lombok.RequiredArgsConstructor;
 import org.example.models.Room;
 import org.example.services.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("room")
-public class RoomController {
-
- //@Autowired
- private final  RoomService roomService;
-
- public RoomController(RoomService roomService) {
-     this.roomService = roomService;
- }
+    public class RoomController {
+    private final  RoomService roomService;
 
     @GetMapping
-    public ResponseEntity<List<RoomDto>> getRooms() {
+    public ResponseEntity<List<Room>> getRooms() {
         return new ResponseEntity<>(roomService.getAllRooms(),HttpStatus.OK);
     }
 
     @GetMapping("/{roomId}")
-    public ResponseEntity<RoomDto> getRoomById(@PathVariable Integer roomId) {
-        RoomDto room = roomService.getRoomById(roomId);
+    public ResponseEntity<Room> getRoomById(@PathVariable Integer roomId) {
+        Room room = roomService.getRoomById(roomId);
         if(room != null){
             return new ResponseEntity<>(room,HttpStatus.OK);
         }else{
