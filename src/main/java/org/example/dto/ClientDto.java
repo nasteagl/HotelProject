@@ -1,30 +1,67 @@
 package org.example.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
+import org.example.models.Client;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.Date;
+
+@Value
+@Builder
 public class ClientDto {
-    private int client_id;
-    private String firstname;
-    private String lastname;
-    private int age;
-    private String phone_number;
-    private String email;
-    private HotelDto hotel;
+    Integer client_id;
+    String firstname;
+    String lastname;
+    Integer age;
+    Integer nrPersons;
+    Date checkIn;
+    Date checkOut;
+    String phoneNumber;
+    String email;
+    HotelDto hotel;
+
+    // Entity -> Dto
+    static public ClientDto fromClient(Client client) {
+        return ClientDto.builder()
+                .client_id(client.getClient_id())
+                .firstname(client.getFirstname())
+                .lastname(client.getLastname())
+                .age(client.getAge())
+                .nrPersons(client.getNrPersons())
+                .checkIn(client.getCheckIn())
+                .checkOut(client.getCheckOut())
+                .phoneNumber(client.getPhoneNumber())
+                .email(client.getEmail())
+                .hotel(HotelDto.fromHotel(client.getHotel()))
+                .build();
+    }
+
+    // Dto -> Entity
+    static public Client fromClientDto(ClientDto clientDto) {
+            return Client.builder()
+                    .client_id(clientDto.getClient_id())
+                    .firstname(clientDto.getFirstname())
+                    .lastname(clientDto.getLastname())
+                    .age(clientDto.getAge())
+                    .nrPersons(clientDto.getNrPersons())
+                    .checkIn(clientDto.getCheckIn())
+                    .checkOut(clientDto.getCheckOut())
+                    .phoneNumber(clientDto.getPhoneNumber())
+                    .email(clientDto.getEmail())
+                    .hotel(HotelDto.fromHotelDto(clientDto.getHotel()))
+                    .build();
+    }
 
     /*
-    TODO: metode statice Dto -> Entity
-    TODO: Toate layere sa foloseasca Dto
-    TODO: De terminat Busness logica pentru CRUD + patch (pentru fiecare camp)
-    TODO: (punishment) In loc de JpaRepository sa utilizam EntityManager
-    TODO: OOOOOOOOO: De creat package Test (H2 database in-memory, JUnit, Mockito) pentru toate trei layere
-    TODO: (TODO = hint) JUnit5, Mockito ultimul, stari de testare (actual/expected), pentru H2 si testing (anotari)
+        TODO: (punishment) In loc de JpaRepository sa utilizam EntityManager
+        TODO: OOOOOOOOO: De creat package Test (H2 database in-memory, JUnit, Mockito) pentru toate trei layere
+        TODO: (TODO = hint) JUnit5, Mockito ultimul, stari de testare (actual/expected), pentru H2 si testing (anotari)
 
-    TODO: modelMapper o7 -> DONE
-    TODO: de reparat logica -> DONE
+        TODO: De terminat Busness logica pentru CRUD + patch (pentru fiecare camp) (Client +, Hotel, Room, RoomType ---)
+        TODO: Toate layere sa foloseasca Dto (Client +, Hotel, Room, RoomType ---)
+        TODO: metode statice Dto -> Entity (Client, Hotel ++ : Room, RoomType --)
+
+        TODO: modelMapper o7 -> DONE
+        TODO: de reparat logica -> DONE
     */
 }

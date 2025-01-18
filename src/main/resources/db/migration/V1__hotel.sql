@@ -4,7 +4,7 @@ CREATE TABLE hotel_schema.client
     client_first_name   VARCHAR(50)                              NOT NULL,
     client_last_name    VARCHAR(50)                              NOT NULL,
     client_age          INTEGER                                  NOT NULL,
-    client_nr_pers      INTEGER                                  NOT NULL,
+    client_nr_persons   INTEGER                                  NOT NULL,
     client_check_in     TIMESTAMP WITHOUT TIME ZONE              NOT NULL,
     client_check_out    TIMESTAMP WITHOUT TIME ZONE              NOT NULL,
     client_phone_number VARCHAR(50)                              NOT NULL,
