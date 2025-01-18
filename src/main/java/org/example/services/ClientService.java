@@ -67,7 +67,6 @@ public class ClientService {
         if (clientDto.getEmail() != null && !clientDto.getEmail().isEmpty()) {
             client.setEmail(clientDto.getEmail());
         }
-        // De adaugat hotel?
         clientRepository.save(client);
     }
 }
