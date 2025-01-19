@@ -2,7 +2,6 @@ package org.example.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.RoomDto;
-import org.example.models.Room;
 import org.example.services.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

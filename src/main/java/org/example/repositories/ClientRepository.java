@@ -15,7 +15,8 @@ public class ClientRepository {
     private final EntityManager entityManager;
 
     public void saveClient(Client entity) {
-        entityManager.persist(entity);
+        Client savedEntity = entityManager.merge(entity);
+        entityManager.persist(savedEntity);
     }
 
     public Client findByIdClient(Integer id) {
@@ -27,11 +28,13 @@ public class ClientRepository {
     }
 
     public void updateClient(Client entity) {
-        entityManager.merge(entity);
+        Client updatedEntity = entityManager.merge(entity);
+        entityManager.merge(updatedEntity);
     }
 
     public void deleteClient(Client entity) {
-        entityManager.remove(entity);
+        Client deletedEntity = entityManager.merge(entity);
+        entityManager.remove(deletedEntity);
     }
 
     public void deleteById(Integer id) {

@@ -49,7 +49,7 @@ public class Client {
     @Column(name = "client_email", length = 50, nullable = false)
     private String email;
 
-    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="hotel_id")
     private Hotel hotel;
 }
