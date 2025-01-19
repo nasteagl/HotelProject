@@ -1,15 +1,12 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.ClientDto;
 import org.example.dto.RoomDto;
-import org.example.models.Client;
 import org.example.models.Room;
 import org.example.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
