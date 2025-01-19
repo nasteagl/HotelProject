@@ -35,11 +35,11 @@ public class Room{
     @Column(name="room_reserved", nullable = false)
     private Boolean reserved;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="rooms_type_id")
     private RoomType roomType;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="hotel_id")
     private Hotel hotel;
 

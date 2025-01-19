@@ -19,7 +19,7 @@ public class RoomService {
     }
 
     public RoomDto getRoomById(Integer roomId) {
-        Room room = roomRepository.findById(roomId).orElse(null);
+        Room room = roomRepository.findById(roomId);
         if (room == null) {
             return null;
         }else {
@@ -36,7 +36,7 @@ public class RoomService {
     }
 
     public void patchRoom(Integer roomId, RoomDto roomDto) {
-        Room room = roomRepository.findById(roomId).get();
+        Room room = roomRepository.findById(roomId);
        if(roomDto != null && roomDto.getId_room() >0) {
            room.setId_room(roomDto.getId_room());
        }

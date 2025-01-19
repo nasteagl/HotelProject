@@ -20,11 +20,22 @@ public class RoomTypeService {
     }
 
     public RoomTypeDto getRoomTypeById(Integer roomTypeId) {
-      RoomType roomType = roomTypeRepository.findById(roomTypeId).get();
+      RoomType roomType = roomTypeRepository.findById(roomTypeId);
         return RoomTypeDto.fromRoomType(roomType);
     }
 
     public void addRoomType(RoomTypeDto roomType) {
         roomTypeRepository.save(RoomTypeDto.fromRoomTypeDto(roomType));
+    }
+
+    public void patchRoomType(Integer roomTypeId, RoomTypeDto roomTypeDto) {
+        RoomType roomType = roomTypeRepository.findById(roomTypeId);
+        if(roomTypeDto.getIdRoomsType() !=null){
+            roomType.setIdRoomsType(roomTypeDto.getIdRoomsType());
+        }
+        if(roomTypeDto.getRoomTypeEnum() !=null){
+            roomType.setRoomTypeEnum(roomTypeDto.getRoomTypeEnum());
+        }
+        roomTypeRepository.save(roomType);
     }
 }

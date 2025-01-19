@@ -34,4 +34,15 @@ public class RoomTypeController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PatchMapping("/{roomType_id}")
+    public ResponseEntity<RoomTypeDto> updateRoomType(@PathVariable Integer roomType_id, @RequestBody RoomTypeDto roomTypeBody) {
+        RoomTypeDto roomTypeDto = roomTypeService.getRoomTypeById(roomType_id);
+        if (roomTypeDto != null) {
+              roomTypeService.patchRoomType(roomType_id, roomTypeBody);
+              return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
