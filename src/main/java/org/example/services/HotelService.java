@@ -45,20 +45,19 @@ public class HotelService {
 
     public void patchHotel(Integer hotelId, HotelDto hotelDto) {
         Hotel hotel = hotelRepository.findByIdHotel(hotelId);
-
-        if (hotelDto.getHotelAddress() != null && !hotelDto.getHotelAddress().isEmpty()) {
+        if (hotelDto.getHotelAddress() != null) {
             hotel.setHotelAddress(hotelDto.getHotelAddress());
         }
-        if (hotelDto.getHotelCity() != null && !hotelDto.getHotelCity().isEmpty()) {
+        if (hotelDto.getHotelCity() != null) {
             hotel.setHotelCity(hotelDto.getHotelCity());
         }
-        if (hotelDto.getHotelCountry() != null && !hotelDto.getHotelCountry().isEmpty()) {
+        if (hotelDto.getHotelCountry() != null) {
             hotel.setHotelCountry(hotelDto.getHotelCountry());
         }
-        if (hotelDto.getHotelPhone() != null && !hotelDto.getHotelPhone().isEmpty()) {
+        if (hotelDto.getHotelPhone() != null) {
             hotel.setHotelPhone(hotelDto.getHotelPhone());
         }
-        if (hotelDto.getHotelEmail() != null && !hotelDto.getHotelEmail().isEmpty()) {
+        if (hotelDto.getHotelEmail() != null) {
             hotel.setHotelEmail(hotelDto.getHotelEmail());
         }
 

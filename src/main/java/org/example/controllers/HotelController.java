@@ -27,7 +27,7 @@ public class HotelController {
     public ResponseEntity<HotelDto> getHotel(@PathVariable Integer hotel_id) {
         HotelDto hotel = hotelService.getHotel(hotel_id);
         if (hotel != null) {
-            return new ResponseEntity<>(hotelService.getHotel(hotel_id), HttpStatus.OK);
+            return new ResponseEntity<>(hotel, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -69,7 +69,7 @@ public class HotelController {
     public ResponseEntity<HotelDto> patchHotel (@PathVariable Integer hotel_id, @RequestBody HotelDto hotelbody) {
         HotelDto hotel = hotelService.getHotel(hotel_id);
         if (hotel != null) {
-            hotelService.patchHotel(hotel_id, hotel);
+            hotelService.patchHotel(hotel_id, hotelbody);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
