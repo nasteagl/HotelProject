@@ -3,26 +3,27 @@ package org.example.repositories;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-class HotelRepositoryTest {
+
+class ClientRepositoryTest {
 
     @Test
-    void saveHotel() {
+    void saveClient() {
     }
 
     @Test
-    void findByIdHotel() {
+    void findByIdClient() {
     }
 
     @Test
-    void findAllHotels() {
+    void findAllClients() {
     }
 
     @Test
-    void updateHotel() {
+    void updateClient() {
     }
 
     @Test
-    void deleteHotel() {
+    void deleteClient() {
     }
 
     @Test

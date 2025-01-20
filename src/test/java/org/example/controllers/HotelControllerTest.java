@@ -1,20 +1,21 @@
-package org.example.repositories;
+package org.example.controllers;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-class HotelRepositoryTest {
+
+class HotelControllerTest {
 
     @Test
-    void saveHotel() {
+    void getHotels() {
     }
 
     @Test
-    void findByIdHotel() {
+    void getHotel() {
     }
 
     @Test
-    void findAllHotels() {
+    void addHotel() {
     }
 
     @Test
@@ -26,6 +27,6 @@ class HotelRepositoryTest {
     }
 
     @Test
-    void deleteById() {
+    void patchHotel() {
     }
 }

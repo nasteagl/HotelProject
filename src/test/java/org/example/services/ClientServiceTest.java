@@ -4,29 +4,29 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HotelServiceTest {
+class ClientServiceTest {
 
     @Test
-    void getHotels() {
+    void getClients() {
     }
 
     @Test
-    void getHotel() {
+    void getClient() {
     }
 
     @Test
-    void addHotel() {
+    void addClient() {
     }
 
     @Test
-    void updateHotel() {
+    void updateClient() {
     }
 
     @Test
-    void deleteHotel() {
+    void deleteClient() {
     }
 
     @Test
-    void patchHotel() {
+    void patchClient() {
     }
 }

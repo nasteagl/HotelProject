@@ -56,10 +56,9 @@ public class ClientDto {
         TODO: OOOOOOOOO: De creat package Test (H2 database in-memory, JUnit, Mockito) pentru toate trei layere (Client, Hotel, Room, RoomType ----) -> WAITING
         TODO: (TODO = hint) JUnit5, Mockito ultimul, stari de testare (actual/expected), pentru H2 si testing (anotari) (Client, Hotel, Room, RoomType ----) -> WAITING
 
-        TODO: (punishment) In loc de JpaRepository sa utilizam EntityManager (Client, Hotel, Room, RoomType +++-) -> IN PROCESS (3/4 DONE)
-        TODO: De terminat Busness logica pentru CRUD + patch (pentru fiecare camp) (Client, Hotel, Room, RoomType +-++) -> IN PROCESS (3/4 DONE)
-        TODO: Toate layere sa foloseasca Dto (Client, Hotel, Room, RoomType +-++) -> IN PROCESS (3/4 DONE)
-
+        TODO: (punishment) In loc de JpaRepository sa utilizam EntityManager (Client, Hotel, Room, RoomType ++++) -> DONE
+        TODO: De terminat Busness logica pentru CRUD + patch (pentru fiecare camp) (Client, Hotel, Room, RoomType ++++) -> DONE
+        TODO: Toate layere sa foloseasca Dto (Client, Hotel, Room, RoomType ++++) -> DONE
         TODO: metode statice Dto -> Entity (Client, Hotel, Room, RoomType ++++) -> DONE
         TODO: modelMapper o7 -> DONE
         TODO: de reparat logica -> DONE
