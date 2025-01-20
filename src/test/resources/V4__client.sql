@@ -1,0 +1,2 @@
+insert into hotel_schema.client(client_first_name, client_last_name, client_age, client_nr_persons, client_check_in, client_check_out, client_phone_number, client_email, hotel_id)
+values('mmm','nnnn',78,12,'12-12-12','12-12-12','123456','gfdsghvcdsdfgvcsdfg',1);
