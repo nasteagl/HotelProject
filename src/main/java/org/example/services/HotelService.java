@@ -1,6 +1,9 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.ClientDto;
+import org.example.dto.HotelDto;
+import org.example.models.Client;
 import org.example.models.Hotel;
 import org.example.repositories.HotelRepository;
 import org.springframework.stereotype.Service;
@@ -12,24 +15,57 @@ import java.util.List;
 public class HotelService {
     private final HotelRepository hotelRepository;
 
-    public List<Hotel> getHotels() {
-        return hotelRepository.findAll();
+    public List<HotelDto> getHotels() {
+        return hotelRepository.findAllHotels()
+                .stream()
+                .map(HotelDto::fromHotel)
+                .toList();
     }
 
-    public Hotel getHotel(Integer hotel_id) {
-        return hotelRepository.findById(hotel_id).orElse(null);
+    public HotelDto getHotel(Integer hotel_Id) {
+        Hotel hotel = hotelRepository.findByIdHotel(hotel_Id);
+        if (null == hotel) {
+            return null;
+        } else {
+            return HotelDto.fromHotel(hotel);
+        }
     }
 
-    public void addHotel(Hotel hotel) {
-        hotelRepository.save(hotel);
+    public void addHotel(HotelDto hotel) {
+        hotelRepository.saveHotel(HotelDto.fromHotelDto(hotel));
     }
 
-    public void updateHotel(Hotel hotel) {
-        hotelRepository.save(hotel);
+    public void updateHotel(HotelDto hotel) {
+        hotelRepository.updateHotel(HotelDto.fromHotelDto(hotel));
     }
 
-    public void deleteHotel(Integer hotel_id) {
-        hotelRepository.deleteById(hotel_id);
+    public void deleteHotel(Integer hotelId) {
+        hotelRepository.deleteById(hotelId);
+    }
+
+    public void patchHotel(Integer hotelId, HotelDto hotelDto) {
+        Hotel hotel = hotelRepository.findByIdHotel(hotelId);
+
+        if (hotelDto.getHotelAddress() != null && !hotelDto.getHotelAddress().isEmpty()) {
+            hotel.setHotelAddress(hotelDto.getHotelAddress());
+        }
+        if (hotelDto.getHotelCity() != null && !hotelDto.getHotelCity().isEmpty()) {
+            hotel.setHotelCity(hotelDto.getHotelCity());
+        }
+        if (hotelDto.getHotelCountry() != null && !hotelDto.getHotelCountry().isEmpty()) {
+            hotel.setHotelCountry(hotelDto.getHotelCountry());
+        }
+        if (hotelDto.getHotelPhone() != null && !hotelDto.getHotelPhone().isEmpty()) {
+            hotel.setHotelPhone(hotelDto.getHotelPhone());
+        }
+        if (hotelDto.getHotelEmail() != null && !hotelDto.getHotelEmail().isEmpty()) {
+            hotel.setHotelEmail(hotelDto.getHotelEmail());
+        }
+
+        hotelRepository.saveHotel(hotel);
     }
 }
+
+
+
 

@@ -1,9 +1,13 @@
 package org.example.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Value;
 import org.example.models.Hotel;
 
+@Data
+@AllArgsConstructor
 @Value
 @Builder
 public class HotelDto {
