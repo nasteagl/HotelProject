@@ -1,5 +1,6 @@
 package org.example.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Value;
 import org.example.models.Client;
@@ -14,7 +15,9 @@ public class ClientDto {
     String lastname;
     Integer age;
     Integer nrPersons;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
     Date checkIn;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
     Date checkOut;
     String phoneNumber;
     String email;

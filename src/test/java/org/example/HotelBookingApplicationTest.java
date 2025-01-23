@@ -24,25 +24,4 @@ class HotelBookingApplicationTest {
         assertTrue(true);
     }
 
-    Calculator calc = new Calculator();
-
-    @Test
-    void addNumbers() {
-        //given
-        int nOne = 10;
-        int nTwo = 20;
-
-        //when
-        int result = calc.add(nOne, nTwo);
-
-        // then
-        int expectedResult = 30;
-        assertThat(result).isEqualTo(expectedResult);
-    }
-
-    class Calculator {
-        int add(int a, int b) {
-            return a + b;
-        }
-    }
 }

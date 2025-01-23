@@ -35,11 +35,11 @@ public class Client {
     @Column(name = "client_nr_persons", nullable = false)
     private Integer nrPersons;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
     @Column(name = "client_check_in", nullable = false)
     private Date checkIn;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
     @Column(name = "client_check_out", nullable = false)
     private Date checkOut;
 

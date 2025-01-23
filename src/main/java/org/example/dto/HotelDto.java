@@ -1,15 +1,17 @@
 package org.example.dto;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Value;
 import org.example.models.Hotel;
 
-@Data
-@AllArgsConstructor
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Value
 @Builder
+@JsonIgnoreProperties({ "rooms", "clients" })
 public class HotelDto {
     Integer hotel_id;
     String hotelAddress;
@@ -17,6 +19,8 @@ public class HotelDto {
     String hotelCountry;
     String hotelPhone;
     String hotelEmail;
+    List<RoomDto> rooms;
+    List<ClientDto> clients;
 
     // Entity -> Dto
     static public HotelDto fromHotel(Hotel hotel) {
@@ -27,6 +31,8 @@ public class HotelDto {
                 .hotelCountry(hotel.getHotelCountry())
                 .hotelPhone(hotel.getHotelPhone())
                 .hotelEmail(hotel.getHotelEmail())
+//                .rooms(hotel.getRooms().stream().map(RoomDto::fromRoom).collect(Collectors.toList()))
+//                .clients(hotel.getClients().stream().map(ClientDto::fromClient).collect(Collectors.toList()))
                 .build();
     }
 

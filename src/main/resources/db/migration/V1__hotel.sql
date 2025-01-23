@@ -1,3 +1,4 @@
+drop schema if exists hotel_schema cascade;
 create schema hotel_schema;
 
 CREATE TABLE hotel_schema.client
