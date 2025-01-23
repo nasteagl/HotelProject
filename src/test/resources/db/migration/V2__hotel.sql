@@ -10,4 +10,7 @@ values('Standard'),
 insert into hotel_schema.hotel(hotel_address, hotel_city, hotel_country, hotel_phone, hotel_email)
 values('aaa','bbb','cccc','dddd','eeeee');
 
+insert into hotel_schema.hotel(hotel_address, hotel_city, hotel_country, hotel_phone, hotel_email)
+values('fff','aaa','fdfd','sfdf','fsdgf');
+
 

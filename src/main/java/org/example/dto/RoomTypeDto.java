@@ -1,21 +1,18 @@
 package org.example.dto;
 
-
-
 import lombok.Builder;
 import lombok.Value;
 import org.example.enums.RoomTypeEnum;
 import org.example.models.Room;
 import org.example.models.RoomType;
 
+import java.util.List;
 
 @Value
 @Builder
 public class RoomTypeDto {
-    private Integer idRoomsType;
-    private RoomTypeEnum roomTypeEnum;
-
-
+    Integer idRoomsType;
+    RoomTypeEnum roomTypeEnum;
 
     static public RoomTypeDto fromRoomType(RoomType roomType){
         return   RoomTypeDto.builder()

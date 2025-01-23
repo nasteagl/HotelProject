@@ -53,7 +53,7 @@ public class RoomService {
            room.setBeds(roomDto.getBeds());
        }
        if(roomDto != null) {
-           room.setReserved(roomDto.isReserved());
+           room.setReserved(roomDto.getReserved());
        }
        roomRepository.save(room);
     }

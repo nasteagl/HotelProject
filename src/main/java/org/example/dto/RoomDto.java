@@ -1,22 +1,18 @@
 package org.example.dto;
 
-
 import lombok.*;
 import org.example.models.Room;
 
-@Data
-@AllArgsConstructor
 @Value
 @Builder
 public class RoomDto {
-    private int id_room;
-    private int floor;
-    private int number;
-    private int price;
-    private int beds;
-    private boolean reserved;
-    private RoomTypeDto roomType;
-
+    Integer id_room;
+    Integer floor;
+    Integer number;
+    Integer price;
+    Integer beds;
+    Boolean reserved;
+    RoomTypeDto roomType;
 
     //Entity->Dto
     static public RoomDto fromRoom(Room room) {
@@ -40,7 +36,7 @@ public class RoomDto {
                 .number(roomDto.getNumber())
                 .price(roomDto.getPrice())
                 .beds(roomDto.getBeds())
-                .reserved(roomDto.isReserved())
+                .reserved(roomDto.getReserved())
                 .roomType(RoomTypeDto.fromRoomTypeDto(roomDto.getRoomType()))
                 .build();
     }
