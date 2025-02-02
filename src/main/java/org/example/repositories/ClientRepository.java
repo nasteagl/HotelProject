@@ -1,22 +1,22 @@
 package org.example.repositories;
 
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.example.models.Client;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Transactional
 @Repository
-@RequiredArgsConstructor
 public class ClientRepository {
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void saveClient(Client entity) {
-        Client savedEntity = entityManager.merge(entity);
-        entityManager.persist(savedEntity);
+        entityManager.persist(entity);
     }
 
     public Client findByIdClient(Integer id) {
@@ -28,13 +28,11 @@ public class ClientRepository {
     }
 
     public void updateClient(Client entity) {
-        Client updatedEntity = entityManager.merge(entity);
-        entityManager.merge(updatedEntity);
+        entityManager.merge(entity);
     }
 
     public void deleteClient(Client entity) {
-        Client deletedEntity = entityManager.merge(entity);
-        entityManager.remove(deletedEntity);
+        entityManager.remove(entity);
     }
 
     public void deleteById(Integer id) {

@@ -1,10 +1,12 @@
 package org.example.services;
 
+
 import lombok.RequiredArgsConstructor;
 import org.example.dto.ClientDto;
 import org.example.models.Client;
 import org.example.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class ClientService {
     private final ClientRepository clientRepository;
 
+    @Transactional(readOnly = true)
     public List<ClientDto> getClients() {
         return clientRepository.findAllClients()
                 .stream()
@@ -20,6 +23,7 @@ public class ClientService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public ClientDto getClient(Integer clientId) {
         Client client = clientRepository.findByIdClient(clientId);
         if (null == client) {
@@ -29,18 +33,22 @@ public class ClientService {
         }
     }
 
+    @Transactional
     public void addClient(ClientDto client) {
         clientRepository.saveClient(ClientDto.fromClientDto(client));
     }
 
+    @Transactional
     public void updateClient(ClientDto client) {
         clientRepository.updateClient(ClientDto.fromClientDto(client));
     }
 
+    @Transactional
     public void deleteClient(Integer clientId) {
         clientRepository.deleteById(clientId);
     }
 
+    @Transactional
     public void patchClient(Integer clientId, ClientDto clientDto) {
         Client client = clientRepository.findByIdClient(clientId);
 
