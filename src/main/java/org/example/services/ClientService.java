@@ -22,6 +22,7 @@ public class ClientService {
                 .map(ClientDto::fromClient) // obj -> ClientDto.fromClient(obj)
                 .toList();
     }
+
     @Transactional(readOnly = true)
     public ClientDto getClient(Integer clientId) {
         Client client = clientRepository.findByIdClient(clientId);
@@ -31,18 +32,22 @@ public class ClientService {
             return ClientDto.fromClient(client);
         }
     }
+
     @Transactional
     public void addClient(ClientDto client) {
         clientRepository.saveClient(ClientDto.fromClientDto(client));
     }
+
     @Transactional
     public void updateClient(ClientDto client) {
         clientRepository.updateClient(ClientDto.fromClientDto(client));
     }
+
     @Transactional
     public void deleteClient(Integer clientId) {
         clientRepository.deleteById(clientId);
     }
+
     @Transactional
     public void patchClient(Integer clientId, ClientDto clientDto) {
         Client client = clientRepository.findByIdClient(clientId);

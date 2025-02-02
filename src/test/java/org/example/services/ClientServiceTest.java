@@ -1,32 +1,35 @@
 package org.example.services;
 
+import org.example.dto.ClientDto;
+import org.example.repositories.ClientRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
+import static org.mockito.Mockito.verify;
+
+@ExtendWith(MockitoExtension.class)
 class ClientServiceTest {
+    @Mock
+    private ClientRepository clientRepository;
+    private ClientService clientService;
 
-    @Test
-    void getClients() {
+    @BeforeEach
+    void setUp() {
+        clientService = new ClientService(clientRepository);
     }
 
     @Test
-    void getClient() {
+    void testGetClient() {
+        // when
+        List<ClientDto> clients = clientService.getClients();
+        System.out.println(clients);
+        // then
+        verify(clientRepository).findAllClients();
     }
 
-    @Test
-    void addClient() {
-    }
-
-    @Test
-    void updateClient() {
-    }
-
-    @Test
-    void deleteClient() {
-    }
-
-    @Test
-    void patchClient() {
-    }
 }
