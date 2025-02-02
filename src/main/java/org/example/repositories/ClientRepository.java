@@ -39,17 +39,4 @@ public class ClientRepository {
         Client entity = findByIdClient(id);
         deleteClient(entity);
     }
-
-    public List<Client> findByName(String name) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Client> cq = cb.createQuery(Client.class);
-        Root<Client> root = cq.from(Client.class);
-        cq.select(root);
-        cq.where(cb.equal(root.get("name"), name));
-        return entityManager.createQuery(cq).getResultList();
-    }
-
-    public void deleteAll() {
-        entityManager.createQuery("delete from Client").executeUpdate();
-    }
 }
