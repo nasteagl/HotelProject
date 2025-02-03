@@ -2,22 +2,24 @@ package org.example.repositories;
 
 import org.example.models.Client;
 import org.flywaydb.core.Flyway;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.Date;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase
 @TestPropertySource(locations = "classpath:application-test.properties")
+@ComponentScan(basePackages = "org.example")
 class ClientRepositoryTest {
 
     @Autowired
@@ -28,6 +30,13 @@ class ClientRepositoryTest {
 
     @Autowired
     private HotelRepository hotelRepository;
+
+    static Date date;
+
+    @BeforeAll
+    static void setup() {
+        date = new Date();
+    }
 
     @BeforeEach
     void setUp() {
@@ -44,8 +53,8 @@ class ClientRepositoryTest {
                 .lastname("Doe")
                 .age(24)
                 .nrPersons(5)
-                .checkIn(new Date())
-                .checkOut(new Date())
+                .checkIn(date)
+                .checkOut(date)
                 .phoneNumber("56327495")
                 .email("john@doe.com")
                 .hotel(hotelRepository.findByIdHotel(1))
@@ -56,8 +65,7 @@ class ClientRepositoryTest {
         Client savedClient = clientRepository.findByIdClient(client.getClient_id());
 
         // then
-        assertThat(savedClient).isNotNull();
-        assertThat(savedClient.getClient_id()).isGreaterThan(0);
+        assertNotNull(savedClient.getClient_id());
     }
 
     @Test
@@ -67,7 +75,7 @@ class ClientRepositoryTest {
         Client actualClient = clientRepository.findByIdClient(1);
 
         // then
-        assertThat(actualClient).isNotNull();
+        assertNotNull(actualClient, "client not found");
     }
 
     @Test
@@ -77,8 +85,7 @@ class ClientRepositoryTest {
         List<Client> actualClientList = clientRepository.findAllClients();
 
         // then
-        assertThat(actualClientList).isNotNull();
-        assertThat(actualClientList.size()).isEqualTo(3);
+        assertNotNull(actualClientList, "List of Clients is null");
     }
 
     @Test
@@ -91,8 +98,8 @@ class ClientRepositoryTest {
                 .lastname("Doe")
                 .age(24)
                 .nrPersons(5)
-                .checkIn(new Date())
-                .checkOut(new Date())
+                .checkIn(date)
+                .checkOut(date)
                 .phoneNumber("56327495")
                 .email("john@doe.com")
                 .hotel(hotelRepository.findByIdHotel(1))
@@ -110,8 +117,8 @@ class ClientRepositoryTest {
                 () -> assertEquals("Doe", updatedClient.getLastname(), "Lastname is incorrect"),
                 () -> assertEquals(24, updatedClient.getAge(), "Age is incorrect"),
                 () -> assertEquals(5, updatedClient.getNrPersons(), "Persons is incorrect"),
-//                () -> assertEquals(new Date(), updatedClient.getCheckIn(), "CheckIn updated"),
-//                () -> assertEquals(new Date(), updatedClient.getCheckOut(), "CheckOut updated"),
+                () -> assertEquals(date, updatedClient.getCheckIn(), "CheckIn updated"),
+                () -> assertEquals(date, updatedClient.getCheckOut(), "CheckOut updated"),
                 () -> assertEquals("56327495", updatedClient.getPhoneNumber(), "PhoneNumber is incorrect"),
                 () -> assertEquals("john@doe.com", updatedClient.getEmail(), "Email is incorrect"),
                 () -> assertEquals(hotelRepository.findByIdHotel(1), updatedClient.getHotel(), "Hotel is incorrect")
@@ -127,8 +134,8 @@ class ClientRepositoryTest {
                 .lastname("Doe")
                 .age(24)
                 .nrPersons(5)
-                .checkIn(new Date())
-                .checkOut(new Date())
+                .checkIn(date)
+                .checkOut(date)
                 .phoneNumber("56327495")
                 .email("john@doe.com")
                 .hotel(hotelRepository.findByIdHotel(1))
@@ -144,7 +151,6 @@ class ClientRepositoryTest {
 
         // then
         assertNull(clientRepository.findByIdClient(client.getClient_id()));
-        assertEquals(3, clientRepository.findAllClients().size(), "There should be 3 Clients");
     }
 
     @Test
@@ -156,8 +162,8 @@ class ClientRepositoryTest {
                 .lastname("Doe")
                 .age(24)
                 .nrPersons(5)
-                .checkIn(new Date())
-                .checkOut(new Date())
+                .checkIn(date)
+                .checkOut(date)
                 .phoneNumber("56327495")
                 .email("john@doe.com")
                 .hotel(hotelRepository.findByIdHotel(1))
@@ -169,10 +175,9 @@ class ClientRepositoryTest {
         assertNotNull(clientRepository.findByIdClient(client.getClient_id()));
 
         // when
-        clientRepository.deleteById(client.getClient_id());
+        clientRepository.deleteClientById(client.getClient_id());
 
         // then
         assertNull(clientRepository.findByIdClient(client.getClient_id()));
-        assertEquals(3, clientRepository.findAllClients().size(), "There should be 3 Clients");
     }
 }

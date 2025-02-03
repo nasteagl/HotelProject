@@ -32,12 +32,8 @@ public class ClientController {
 
     @PostMapping
     public ResponseEntity<ClientDto> addClient(@RequestBody ClientDto client) {
-        if (client != null) {
-            clientService.addClient(client);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        clientService.addClient(client);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping

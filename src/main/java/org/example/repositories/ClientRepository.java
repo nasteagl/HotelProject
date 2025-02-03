@@ -2,9 +2,6 @@ package org.example.repositories;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import org.example.models.Client;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +32,7 @@ public class ClientRepository {
         entityManager.remove(entity);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteClientById(Integer id) {
         Client entity = findByIdClient(id);
         deleteClient(entity);
     }
