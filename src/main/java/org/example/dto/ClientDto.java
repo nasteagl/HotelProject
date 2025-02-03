@@ -16,9 +16,7 @@ public class ClientDto {
     String lastname;
     Integer age;
     Integer nrPersons;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
     Date checkIn;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
     Date checkOut;
     String phoneNumber;
     String email;
