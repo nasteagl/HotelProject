@@ -79,19 +79,7 @@ class ClientServiceTest {
     void getClientTest() {
 
         // given
-        given(clientRepository.findByIdClient(anyInt())).willReturn(
-                Client.builder()
-                    .firstname("John")
-                    .lastname("Doe")
-                    .age(24)
-                    .nrPersons(5)
-                    .checkIn(date)
-                    .checkOut(date)
-                    .phoneNumber("56327495")
-                    .email("john@doe.com")
-                    .hotel(hotel)
-                    .build()
-        );
+        given(clientRepository.findByIdClient(anyInt())).willReturn(initialClient);
 
         // when
         clientService.getClient(1);
@@ -116,6 +104,9 @@ class ClientServiceTest {
     @Test
     void addClientTest() {
 
+        // given
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
+
         // when
         clientService.addClient(initialClientDto);
 
@@ -130,6 +121,8 @@ class ClientServiceTest {
     void updateClientTest() {
 
         // given
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
+
         Client actualClient = Client.builder()
                 .client_id(1)
                 .firstname("Boris")
@@ -142,6 +135,8 @@ class ClientServiceTest {
                 .email("boris@conan.com")
                 .hotel(hotel)
                 .build();
+
+        given(clientRepository.updateClient(actualClient)).willReturn(actualClient);
 
         // when (save initialClient)
         clientService.addClient(initialClientDto);
@@ -166,27 +161,16 @@ class ClientServiceTest {
     void deleteClientTest() {
 
         // given
-        Client actualClient = Client.builder()
-                .client_id(1)
-                .firstname("John")
-                .lastname("Doe")
-                .age(24)
-                .nrPersons(5)
-                .checkIn(date)
-                .checkOut(date)
-                .phoneNumber("56327495")
-                .email("john@doe.com")
-                .hotel(hotel)
-                .build();
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
 
         // when (save Client)
-        clientService.addClient(ClientDto.fromClient(actualClient));
+        clientService.addClient(ClientDto.fromClient(initialClient));
 
         // then (save Client)
         ArgumentCaptor<Client> clientCaptor = ArgumentCaptor.forClass(Client.class);
         verify(clientRepository).saveClient(clientCaptor.capture());
         Client capturedClient = clientCaptor.getValue();
-        assertEquals(actualClient, capturedClient);
+        assertEquals(initialClient, capturedClient);
 
         // when (delete Client)
         clientService.deleteClient(1);
@@ -199,33 +183,10 @@ class ClientServiceTest {
     void patchClientTest() {
 
         // given
-        given(clientRepository.findByIdClient(anyInt())).willReturn(
-                Client.builder()
-                        .client_id(1)
-                        .firstname("John")
-                        .lastname("Doe")
-                        .age(24)
-                        .nrPersons(5)
-                        .checkIn(date)
-                        .checkOut(date)
-                        .phoneNumber("56327495")
-                        .email("john@doe.com")
-                        .hotel(hotel)
-                        .build()
-        );
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
+        given(clientRepository.findByIdClient(anyInt())).willReturn(initialClient);
 
-        Client actualClientSameVals = Client.builder()
-                .client_id(1)
-                .firstname("John")
-                .lastname("Doe")
-                .age(24)
-                .nrPersons(5)
-                .checkIn(date)
-                .checkOut(date)
-                .phoneNumber("56327495")
-                .email("john@doe.com")
-                .hotel(hotel)
-                .build();
+        Client actualClientSameVals = initialClient;
 
         Client actualClientNullVals = Client.builder()
                 .client_id(null)
@@ -333,6 +294,7 @@ class ClientServiceTest {
     void patchClientAsNullTest() {
 
         // given
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
         given(clientRepository.findByIdClient(anyInt())).willReturn(null);
 
         // when (saveInitialClient)

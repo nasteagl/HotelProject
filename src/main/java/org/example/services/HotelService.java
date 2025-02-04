@@ -1,12 +1,11 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.dto.ClientDto;
 import org.example.dto.HotelDto;
-import org.example.models.Client;
 import org.example.models.Hotel;
 import org.example.repositories.HotelRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ import java.util.List;
 public class HotelService {
     private final HotelRepository hotelRepository;
 
+    @Transactional(readOnly = true)
     public List<HotelDto> getHotels() {
         return hotelRepository.findAllHotels()
                 .stream()
@@ -22,6 +22,7 @@ public class HotelService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public HotelDto getHotel(Integer hotel_Id) {
         Hotel hotel = hotelRepository.findByIdHotel(hotel_Id);
         if (null == hotel) {
@@ -31,37 +32,48 @@ public class HotelService {
         }
     }
 
-    public void addHotel(HotelDto hotel) {
-        hotelRepository.saveHotel(HotelDto.fromHotelDto(hotel));
+    @Transactional
+    public HotelDto addHotel(HotelDto hotelDto) {
+        Hotel hotel = hotelRepository.saveHotel(HotelDto.fromHotelDto(hotelDto));
+        return HotelDto.fromHotel(hotel);
     }
 
-    public void updateHotel(HotelDto hotel) {
-        hotelRepository.updateHotel(HotelDto.fromHotelDto(hotel));
+    @Transactional
+    public HotelDto updateHotel(HotelDto hotelDto) {
+        Hotel hotel = hotelRepository.updateHotel(HotelDto.fromHotelDto(hotelDto));
+        return HotelDto.fromHotel(hotel);
     }
 
-    public void deleteHotel(Integer hotelId) {
-        hotelRepository.deleteById(hotelId);
+    @Transactional
+    public HotelDto deleteHotel(Integer hotelId) {
+        Hotel hotel = hotelRepository.deleteById(hotelId);
+        return HotelDto.fromHotel(hotel);
     }
 
-    public void patchHotel(Integer hotelId, HotelDto hotelDto) {
+    @Transactional
+    public HotelDto patchHotel(Integer hotelId, HotelDto hotelDto) {
         Hotel hotel = hotelRepository.findByIdHotel(hotelId);
-        if (hotelDto.getHotelAddress() != null) {
-            hotel.setHotelAddress(hotelDto.getHotelAddress());
+        if (null == hotel) {
+            throw new RuntimeException("Hotel not found");
+        } else {
+            if (hotelDto.getHotelAddress() != null) {
+                hotel.setHotelAddress(hotelDto.getHotelAddress());
+            }
+            if (hotelDto.getHotelCity() != null) {
+                hotel.setHotelCity(hotelDto.getHotelCity());
+            }
+            if (hotelDto.getHotelCountry() != null) {
+                hotel.setHotelCountry(hotelDto.getHotelCountry());
+            }
+            if (hotelDto.getHotelPhone() != null) {
+                hotel.setHotelPhone(hotelDto.getHotelPhone());
+            }
+            if (hotelDto.getHotelEmail() != null) {
+                hotel.setHotelEmail(hotelDto.getHotelEmail());
+            }
+            hotelRepository.saveHotel(hotel);
+            return HotelDto.fromHotel(hotel);
         }
-        if (hotelDto.getHotelCity() != null) {
-            hotel.setHotelCity(hotelDto.getHotelCity());
-        }
-        if (hotelDto.getHotelCountry() != null) {
-            hotel.setHotelCountry(hotelDto.getHotelCountry());
-        }
-        if (hotelDto.getHotelPhone() != null) {
-            hotel.setHotelPhone(hotelDto.getHotelPhone());
-        }
-        if (hotelDto.getHotelEmail() != null) {
-            hotel.setHotelEmail(hotelDto.getHotelEmail());
-        }
-
-        hotelRepository.saveHotel(hotel);
     }
 }
 
