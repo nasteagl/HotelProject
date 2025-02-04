@@ -1,6 +1,5 @@
 package org.example.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +33,7 @@ public class Client {
 
     @Column(name = "client_nr_persons", nullable = false)
     private Integer nrPersons;
+
 
     @Column(name = "client_check_in", nullable = false)
     private Date checkIn;

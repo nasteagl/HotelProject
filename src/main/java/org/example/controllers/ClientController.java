@@ -32,24 +32,18 @@ public class ClientController {
 
     @PostMapping
     public ResponseEntity<ClientDto> addClient(@RequestBody ClientDto client) {
-        clientService.addClient(client);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(clientService.addClient(client), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<ClientDto> updateClient(@RequestBody ClientDto client) {
-        if (client != null) {
-            clientService.updateClient(client);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(clientService.updateClient(client), HttpStatus.OK);
     }
 
     @DeleteMapping("/{clientId}")
     public ResponseEntity<ClientDto> deleteClient(@PathVariable Integer clientId) {
         ClientDto client = clientService.getClient(clientId);
-        if (client != null) {
+        if (client != null ) {
             clientService.deleteClient(clientId);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
@@ -61,8 +55,7 @@ public class ClientController {
     public ResponseEntity<ClientDto> patchClient(@PathVariable Integer clientId, @RequestBody ClientDto clientBody) {
         ClientDto client = clientService.getClient(clientId);
         if (client != null) {
-            clientService.patchClient(clientId, clientBody);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(clientService.patchClient(clientId, clientBody), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
