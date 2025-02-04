@@ -1,22 +1,20 @@
 package org.example.repositories;
 
+import jakarta.persistence.PersistenceContext;
 import org.example.models.Hotel;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
-
-@Transactional
 @Repository
-@RequiredArgsConstructor
 public class HotelRepository {
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public void saveHotel(Hotel entity) {
+    public Hotel saveHotel(Hotel entity) {
         Hotel savedEntity = entityManager.merge(entity);
         entityManager.persist(savedEntity);
+        return savedEntity;
     }
 
     public Hotel findByIdHotel(Integer id){
@@ -27,19 +25,22 @@ public class HotelRepository {
         return entityManager.createQuery("select h from Hotel h", Hotel.class).getResultList();
     }
 
-    public void updateHotel(Hotel entity) {
+    public Hotel updateHotel(Hotel entity) {
         Hotel updatedEntity = entityManager.merge(entity);
         entityManager.merge(updatedEntity);
+        return updatedEntity;
     }
 
-    public void deleteHotel(Hotel entity) {
+    public Hotel deleteHotel(Hotel entity) {
         Hotel deletedEntity = entityManager.merge(entity);
         entityManager.remove(deletedEntity);
+        return deletedEntity;
     }
 
-    public void deleteById(Integer id) {
+    public Hotel deleteById(Integer id) {
         Hotel entity = findByIdHotel(id);
         deleteHotel(entity);
+        return entity;
     }
 
 }
