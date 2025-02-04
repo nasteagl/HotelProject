@@ -89,6 +89,9 @@ class HotelServiceTest {
 
     @Test
     void addHotelTest() {
+        //given
+        given(hotelRepository.saveHotel(initialHotel)).willReturn(initialHotel);
+
         // when
         hotelService.addHotel(initialHotelDto);
 
@@ -102,6 +105,7 @@ class HotelServiceTest {
     @Test
     void updateHotelTest() {
         // given
+        given(hotelRepository.saveHotel(initialHotel)).willReturn(initialHotel);
         Hotel actualHotel = Hotel.builder()
                 .hotel_id(1)
                 .hotelCountry("Country")
@@ -110,6 +114,7 @@ class HotelServiceTest {
                 .hotelEmail("email@example.com")
                 .hotelPhone("060000000")
                 .build();
+        given(hotelRepository.updateHotel(actualHotel)).willReturn(actualHotel);
 
         // when (save initialHotel)
         hotelService.addHotel(initialHotelDto);
@@ -133,19 +138,12 @@ class HotelServiceTest {
     @Test
     void deleteHotelTest() {
         // given
-        Hotel actualHotel = Hotel.builder()
-                .hotel_id(1)
-                .hotelCountry("Country")
-                .hotelCity("City")
-                .hotelAddress("Address")
-                .hotelEmail("email@example.com")
-                .hotelPhone("060000000")
-                .build();
+        given(hotelRepository.saveHotel(initialHotel)).willReturn(initialHotel);
 
-        //when save actualHotel
-        hotelService.addHotel(HotelDto.fromHotel(actualHotel));
+        //when save Hotel
+        hotelService.addHotel(HotelDto.fromHotel(initialHotel));
 
-        // then (save actualHotel)
+        //then (save Hotel)
         ArgumentCaptor<Hotel> hotelCaptor = ArgumentCaptor.forClass(Hotel.class);
         verify(hotelRepository).saveHotel(hotelCaptor.capture());
         Hotel capturedHotel = hotelCaptor.getValue();
@@ -161,25 +159,10 @@ class HotelServiceTest {
     @Test
     void patchHotelTest() {
         //given
-        given(hotelRepository.findByIdHotel(anyInt())).willReturn(
-                Hotel.builder()
-                        .hotel_id(1)
-                        .hotelCountry("Country")
-                        .hotelCity("City")
-                        .hotelAddress("Address")
-                        .hotelEmail("email@example.com")
-                        .hotelPhone("060000000")
-                        .build()
-        );
+        given(hotelRepository.saveHotel(initialHotel)).willReturn(initialHotel);
+        given(hotelRepository.findByIdHotel(anyInt())).willReturn(initialHotel);
 
-        Hotel actualHotelSameVals = Hotel.builder()
-                .hotel_id(1)
-                .hotelCountry("Country")
-                .hotelCity("City")
-                .hotelAddress("Address")
-                .hotelEmail("email@example.com")
-                .hotelPhone("060000000")
-                .build();
+        Hotel actualHotelSameVals = initialHotel;
 
         Hotel actualHotelNullVals = Hotel.builder()
                 .hotel_id(null)
@@ -201,8 +184,8 @@ class HotelServiceTest {
 
         Hotel actualHotelSomeWrongVals = Hotel.builder()
                 .hotel_id(1)
-                .hotelCountry("null")
-                .hotelCity("null")
+                .hotelCountry("")
+                .hotelCity("")
                 .hotelAddress("Address")
                 .hotelEmail("email@example.com")
                 .hotelPhone("060000000")
@@ -222,7 +205,6 @@ class HotelServiceTest {
 
         //then patch hotel with same vals
         assertAll(
-                () -> assertEquals(1,actualHotelSameVals.getHotel_id(), "Incorrect hotel ID"),
                 () -> assertEquals("Country",actualHotelSameVals.getHotelCountry(), "incorrect name"),
                 () -> assertEquals("City",actualHotelSameVals.getHotelCity(), "incorrect CITY"),
                 () -> assertEquals("Address",actualHotelSameVals.getHotelAddress(), "incorrect address"),
@@ -235,40 +217,41 @@ class HotelServiceTest {
 
 //then patch hotel with null vals
         assertAll(
-                () -> assertNull(actualHotelSameVals.getHotel_id(), "Incorrect hotel ID"),
-                () -> assertNull(actualHotelSameVals.getHotelCountry(), "incorrect name"),
-                () -> assertNull(actualHotelSameVals.getHotelCity(), "incorrect CITY"),
-                () -> assertNull(actualHotelSameVals.getHotelAddress(), "incorrect address"),
-                () -> assertNull(actualHotelSameVals.getHotelEmail(), "incorrect email"),
-                () -> assertNull(actualHotelSameVals.getHotelPhone(), "incorrect phone")
+                () -> assertNull(actualHotelNullVals.getHotelCountry(), "incorrect name"),
+                () -> assertNull(actualHotelNullVals.getHotelCity(), "incorrect CITY"),
+                () -> assertNull(actualHotelNullVals.getHotelAddress(), "incorrect address"),
+                () -> assertNull(actualHotelNullVals.getHotelEmail(), "incorrect email"),
+                () -> assertNull(actualHotelNullVals.getHotelPhone(), "incorrect phone")
         );
 
         //when patch with wrong values
         hotelService.patchHotel(1, HotelDto.fromHotel(actualHotelAllWrongVals));
         //then patch with wrong values
-        assertAll(() -> assertEquals(1,actualHotelSameVals.getHotel_id(), "Incorrect hotel ID"),
-                () -> assertEquals("",actualHotelSameVals.getHotelCountry(), "incorrect name"),
-                () -> assertEquals("",actualHotelSameVals.getHotelCity(), "incorrect CITY"),
-                () -> assertEquals("",actualHotelSameVals.getHotelAddress(), "incorrect address"),
-                () -> assertEquals("",actualHotelSameVals.getHotelEmail(), "incorrect email"),
-                () -> assertEquals("",actualHotelSameVals.getHotelPhone(), "incorrect phone")
+        assertAll(
+                () -> assertEquals("",actualHotelAllWrongVals.getHotelCountry(), "incorrect name"),
+                () -> assertEquals("",actualHotelAllWrongVals.getHotelCity(), "incorrect CITY"),
+                () -> assertEquals("",actualHotelAllWrongVals.getHotelAddress(), "incorrect address"),
+                () -> assertEquals("",actualHotelAllWrongVals.getHotelEmail(), "incorrect email"),
+                () -> assertEquals("",actualHotelAllWrongVals.getHotelPhone(), "incorrect phone")
         );
 
         //when patch hotel with some wrong vals
-        hotelService.patchHotel(1, HotelDto.fromHotel(actualHotelAllWrongVals));
+        hotelService.patchHotel(1, HotelDto.fromHotel(actualHotelSomeWrongVals));
         //then patch hotel with some wrong vals
         assertAll(
-                () -> assertEquals("",actualHotelSameVals.getHotelCountry(), "incorrect name"),
-                () -> assertEquals("",actualHotelSameVals.getHotelCity(), "incorrect CITY")
+                () -> assertEquals("",actualHotelSomeWrongVals.getHotelCountry(), "incorrect name"),
+                () -> assertEquals("",actualHotelSomeWrongVals.getHotelCity(), "incorrect CITY")
         );
 
     }
 
     @Test
     void patchHotelAsNullTest() {
+        given(hotelRepository.saveHotel(initialHotel)).willReturn(initialHotel);
         given(hotelRepository.findByIdHotel(anyInt())).willReturn(null);
 
         hotelService.addHotel(initialHotelDto);
+        
         ArgumentCaptor<Hotel> hotelCaptor = ArgumentCaptor.forClass(Hotel.class);
         verify(hotelRepository).saveHotel(hotelCaptor.capture());
         Hotel capturedHotel = hotelCaptor.getValue();

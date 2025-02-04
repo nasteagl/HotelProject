@@ -31,16 +31,14 @@ public class HotelRepository {
         return updatedEntity;
     }
 
-    public Hotel deleteHotel(Hotel entity) {
+    public void deleteHotel(Hotel entity) {
         Hotel deletedEntity = entityManager.merge(entity);
         entityManager.remove(deletedEntity);
-        return deletedEntity;
     }
 
-    public Hotel deleteById(Integer id) {
+    public void deleteById(Integer id) {
         Hotel entity = findByIdHotel(id);
         deleteHotel(entity);
-        return entity;
     }
 
 }

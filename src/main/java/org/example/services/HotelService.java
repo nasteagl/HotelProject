@@ -45,16 +45,15 @@ public class HotelService {
     }
 
     @Transactional
-    public HotelDto deleteHotel(Integer hotelId) {
-        Hotel hotel = hotelRepository.deleteById(hotelId);
-        return HotelDto.fromHotel(hotel);
+    public void deleteHotel(Integer hotelId) {
+        hotelRepository.deleteById(hotelId);
     }
 
     @Transactional
     public HotelDto patchHotel(Integer hotelId, HotelDto hotelDto) {
         Hotel hotel = hotelRepository.findByIdHotel(hotelId);
         if (null == hotel) {
-            throw new RuntimeException("Hotel not found");
+            throw new NullPointerException("Hotel not found");
         } else {
             if (hotelDto.getHotelAddress() != null) {
                 hotel.setHotelAddress(hotelDto.getHotelAddress());
