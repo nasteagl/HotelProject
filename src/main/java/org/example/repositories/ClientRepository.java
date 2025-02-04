@@ -12,8 +12,9 @@ public class ClientRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void saveClient(Client entity) {
+    public Client saveClient(Client entity) {
         entityManager.persist(entity);
+        return entity;
     }
 
     public Client findByIdClient(Integer id) {
@@ -24,12 +25,13 @@ public class ClientRepository {
         return entityManager.createQuery("select c from Client c", Client.class).getResultList();
     }
 
-    public void updateClient(Client entity) {
-        entityManager.merge(entity);
+    public Client updateClient(Client entity) {
+        return entityManager.merge(entity);
     }
 
-    public void deleteClient(Client entity) {
+    public Client deleteClient(Client entity) {
         entityManager.remove(entity);
+        return entity;
     }
 
     public void deleteClientById(Integer id) {

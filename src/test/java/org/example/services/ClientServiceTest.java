@@ -30,11 +30,13 @@ class ClientServiceTest {
     private ClientService clientService;
 
     static Hotel hotel;
+    static Date date;
     private Client initialClient;
     private ClientDto initialClientDto;
 
     @BeforeAll
     static void setup() {
+        date = new Date();
         hotel = Hotel.builder()
                 .hotel_id(1)
                 .hotelAddress("Hotel Address")
@@ -53,8 +55,8 @@ class ClientServiceTest {
                 .lastname("Doe")
                 .age(24)
                 .nrPersons(5)
-                .checkIn(new Date())
-                .checkOut(new Date())
+                .checkIn(date)
+                .checkOut(date)
                 .phoneNumber("56327495")
                 .email("john@doe.com")
                 .hotel(hotel)
@@ -77,19 +79,7 @@ class ClientServiceTest {
     void getClientTest() {
 
         // given
-        given(clientRepository.findByIdClient(anyInt())).willReturn(
-                Client.builder()
-                    .firstname("John")
-                    .lastname("Doe")
-                    .age(24)
-                    .nrPersons(5)
-                    .checkIn(new Date())
-                    .checkOut(new Date())
-                    .phoneNumber("56327495")
-                    .email("john@doe.com")
-                    .hotel(hotel)
-                    .build()
-        );
+        given(clientRepository.findByIdClient(anyInt())).willReturn(initialClient);
 
         // when
         clientService.getClient(1);
@@ -114,6 +104,9 @@ class ClientServiceTest {
     @Test
     void addClientTest() {
 
+        // given
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
+
         // when
         clientService.addClient(initialClientDto);
 
@@ -128,18 +121,22 @@ class ClientServiceTest {
     void updateClientTest() {
 
         // given
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
+
         Client actualClient = Client.builder()
                 .client_id(1)
                 .firstname("Boris")
                 .lastname("Conan")
                 .age(32)
                 .nrPersons(4)
-                .checkIn(new Date())
-                .checkOut(new Date())
+                .checkIn(date)
+                .checkOut(date)
                 .phoneNumber("58492031")
                 .email("boris@conan.com")
                 .hotel(hotel)
                 .build();
+
+        given(clientRepository.updateClient(actualClient)).willReturn(actualClient);
 
         // when (save initialClient)
         clientService.addClient(initialClientDto);
@@ -164,27 +161,16 @@ class ClientServiceTest {
     void deleteClientTest() {
 
         // given
-        Client actualClient = Client.builder()
-                .client_id(1)
-                .firstname("John")
-                .lastname("Doe")
-                .age(24)
-                .nrPersons(5)
-                .checkIn(new Date())
-                .checkOut(new Date())
-                .phoneNumber("56327495")
-                .email("john@doe.com")
-                .hotel(hotel)
-                .build();
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
 
         // when (save Client)
-        clientService.addClient(ClientDto.fromClient(actualClient));
+        clientService.addClient(ClientDto.fromClient(initialClient));
 
         // then (save Client)
         ArgumentCaptor<Client> clientCaptor = ArgumentCaptor.forClass(Client.class);
         verify(clientRepository).saveClient(clientCaptor.capture());
         Client capturedClient = clientCaptor.getValue();
-        assertEquals(actualClient, capturedClient);
+        assertEquals(initialClient, capturedClient);
 
         // when (delete Client)
         clientService.deleteClient(1);
@@ -197,33 +183,10 @@ class ClientServiceTest {
     void patchClientTest() {
 
         // given
-        given(clientRepository.findByIdClient(anyInt())).willReturn(
-                Client.builder()
-                        .client_id(1)
-                        .firstname("John")
-                        .lastname("Doe")
-                        .age(24)
-                        .nrPersons(5)
-                        .checkIn(new Date())
-                        .checkOut(new Date())
-                        .phoneNumber("56327495")
-                        .email("john@doe.com")
-                        .hotel(hotel)
-                        .build()
-        );
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
+        given(clientRepository.findByIdClient(anyInt())).willReturn(initialClient);
 
-        Client actualClientSameVals = Client.builder()
-                .client_id(1)
-                .firstname("John")
-                .lastname("Doe")
-                .age(24)
-                .nrPersons(5)
-                .checkIn(new Date())
-                .checkOut(new Date())
-                .phoneNumber("56327495")
-                .email("john@doe.com")
-                .hotel(hotel)
-                .build();
+        Client actualClientSameVals = initialClient;
 
         Client actualClientNullVals = Client.builder()
                 .client_id(null)
@@ -282,8 +245,8 @@ class ClientServiceTest {
                 () -> assertEquals("Doe", actualClientSameVals.getLastname(), "Lastname is incorrect"),
                 () -> assertEquals(24, actualClientSameVals.getAge(), "Age is incorrect"),
                 () -> assertEquals(5, actualClientSameVals.getNrPersons(), "Persons is incorrect"),
-//                () -> assertEquals(new Date(), actualClientSameVals.getCheckIn(), "CheckIn is incorrect"),
-//                () -> assertEquals(new Date(), actualClientSameVals.getCheckOut(), "CheckOut is incorrect"),
+                () -> assertEquals(date, actualClientSameVals.getCheckIn(), "CheckIn is incorrect"),
+                () -> assertEquals(date, actualClientSameVals.getCheckOut(), "CheckOut is incorrect"),
                 () -> assertEquals("56327495", actualClientSameVals.getPhoneNumber(), "PhoneNumber is incorrect"),
                 () -> assertEquals("john@doe.com", actualClientSameVals.getEmail(), "Email is incorrect"),
                 () -> assertEquals(hotel, actualClientSameVals.getHotel(), "Hotel is incorrect")
@@ -298,8 +261,8 @@ class ClientServiceTest {
                 () -> assertNull(actualClientNullVals.getLastname(), "Lastname is not null"),
                 () -> assertNull(actualClientNullVals.getAge(), "Age is not null"),
                 () -> assertNull(actualClientNullVals.getNrPersons(), "Persons is not null"),
-//                () -> assertNull(actualClientNullVals.getCheckIn(), "CheckIn is not null"),
-//                () -> assertNull(actualClientNullVals.getCheckOut(), "CheckOut is not null"),
+                () -> assertNull(actualClientNullVals.getCheckIn(), "CheckIn is not null"),
+                () -> assertNull(actualClientNullVals.getCheckOut(), "CheckOut is not null"),
                 () -> assertNull(actualClientNullVals.getPhoneNumber(), "PhoneNumber is not null"),
                 () -> assertNull(actualClientNullVals.getEmail(), "Email is not null")
         );
@@ -331,6 +294,7 @@ class ClientServiceTest {
     void patchClientAsNullTest() {
 
         // given
+        given(clientRepository.saveClient(initialClient)).willReturn(initialClient);
         given(clientRepository.findByIdClient(anyInt())).willReturn(null);
 
         // when (saveInitialClient)

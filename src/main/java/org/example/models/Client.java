@@ -1,6 +1,5 @@
 package org.example.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -35,11 +34,10 @@ public class Client {
     @Column(name = "client_nr_persons", nullable = false)
     private Integer nrPersons;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
+
     @Column(name = "client_check_in", nullable = false)
     private Date checkIn;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Europe/Chisinau")
     @Column(name = "client_check_out", nullable = false)
     private Date checkOut;
 

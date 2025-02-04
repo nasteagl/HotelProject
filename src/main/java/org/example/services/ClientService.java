@@ -34,13 +34,15 @@ public class ClientService {
     }
 
     @Transactional
-    public void addClient(ClientDto client) {
-        clientRepository.saveClient(ClientDto.fromClientDto(client));
+    public ClientDto addClient(ClientDto clientDto) {
+        Client client = clientRepository.saveClient(ClientDto.fromClientDto(clientDto));
+        return ClientDto.fromClient(client);
     }
 
     @Transactional
-    public void updateClient(ClientDto client) {
-        clientRepository.updateClient(ClientDto.fromClientDto(client));
+    public ClientDto updateClient(ClientDto clientDto) {
+        Client client = clientRepository.updateClient(ClientDto.fromClientDto(clientDto));
+        return ClientDto.fromClient(client);
     }
 
     @Transactional
@@ -49,7 +51,7 @@ public class ClientService {
     }
 
     @Transactional
-    public void patchClient(Integer clientId, ClientDto clientDto) {
+    public ClientDto patchClient(Integer clientId, ClientDto clientDto) {
         Client client = clientRepository.findByIdClient(clientId);
         if (null == client) {
             throw new NullPointerException("Client not found");
@@ -79,6 +81,7 @@ public class ClientService {
                 client.setEmail(clientDto.getEmail());
             }
             clientRepository.updateClient(client);
+            return ClientDto.fromClient(client);
         }
     }
 }
