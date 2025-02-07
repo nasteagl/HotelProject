@@ -12,9 +12,8 @@ public class HotelRepository {
     private EntityManager entityManager;
 
     public Hotel saveHotel(Hotel entity) {
-        Hotel savedEntity = entityManager.merge(entity);
-        entityManager.persist(savedEntity);
-        return savedEntity;
+        entityManager.persist(entity);
+        return entity;
     }
 
     public Hotel findByIdHotel(Integer id){
@@ -31,16 +30,14 @@ public class HotelRepository {
         return updatedEntity;
     }
 
-    public Hotel deleteHotel(Hotel entity) {
+    public void deleteHotel(Hotel entity) {
         Hotel deletedEntity = entityManager.merge(entity);
         entityManager.remove(deletedEntity);
-        return deletedEntity;
     }
 
-    public Hotel deleteById(Integer id) {
+    public void deleteById(Integer id) {
         Hotel entity = findByIdHotel(id);
         deleteHotel(entity);
-        return entity;
     }
 
 }

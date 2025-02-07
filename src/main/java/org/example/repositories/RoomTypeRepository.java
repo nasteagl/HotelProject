@@ -2,13 +2,13 @@ package org.example.repositories;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.example.models.Room;
 import org.example.models.RoomType;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 @RequiredArgsConstructor
 @Transactional
@@ -16,9 +16,8 @@ import java.util.List;
 public class RoomTypeRepository  {
     private final EntityManager entityManager;
 
-    public void save(RoomType entity) {
-        RoomType saveEntity = entityManager.merge(entity);
-        entityManager.persist(saveEntity);
+    public RoomType save(RoomType entity) {
+        return entityManager.merge(entity);
     }
 
     public List<RoomType> findAll() {
@@ -28,10 +27,19 @@ public class RoomTypeRepository  {
     public RoomType findById(Integer id) {
         return entityManager.find(RoomType.class, id);
     }
-    public void delete(Integer id) {
-        RoomType entity = entityManager.find(RoomType.class, id);
+    public void deleteRoomType(RoomType entity) {
+        entityManager.remove(entity);
     }
-    public void deleteById(Integer id) {
-        RoomType entity = entityManager.find(RoomType.class, id);
+
+
+
+    public void deleteByIdRoomType(Integer id) {
+        RoomType entity = findById(id);
+        entityManager.remove(entity);
     }
+
+    public RoomType UpdateRoomType(RoomType entity) {
+        return entityManager.merge(entity);
+    }
+
 }

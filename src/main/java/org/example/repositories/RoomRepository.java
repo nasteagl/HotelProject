@@ -1,6 +1,7 @@
 package org.example.repositories;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.models.Room;
@@ -9,35 +10,36 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@Transactional
-@RequiredArgsConstructor
-public class RoomRepository  {
-    private final EntityManager entityManager;
 
-    public void save(Room entity) {
-        Room savedEntity = entityManager.merge(entity);
-        entityManager.persist(savedEntity);
+public class RoomRepository  {
+    @PersistenceContext
+    private  EntityManager entityManager;
+
+    public Room save(Room entity) {
+        entityManager.persist(entity);
+        return entity;
     }
 
     public Room findById(Integer id) {
         return entityManager.find(Room.class, id);
+
     }
 
     public List<Room> findAll(){
         return entityManager.createQuery("select r from Room r", Room.class).getResultList();
     }
 
-    public void update(Room entity) {
-       Room updateEntity = entityManager.merge(entity);
-       entityManager.merge(updateEntity);
+    public Room update(Room entity) {
+        return entityManager.merge(entity);
+
     }
-    public void delete(Integer id) {
-       Room deleteEntity = entityManager.find(Room.class, id);
-       entityManager.remove(deleteEntity);
+    public Room delete(Room entity) {
+        entityManager.remove(entity);
+        return entity;
     }
     public void deleteById(Integer id) {
-        Room deleteEntity = entityManager.find(Room.class, id);
-        entityManager.remove(deleteEntity);
+        Room entity= findById(id);
+        delete(entity);
     }
 
 
