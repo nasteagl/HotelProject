@@ -12,9 +12,8 @@ public class HotelRepository {
     private EntityManager entityManager;
 
     public Hotel saveHotel(Hotel entity) {
-        Hotel savedEntity = entityManager.merge(entity);
-        entityManager.persist(savedEntity);
-        return savedEntity;
+        entityManager.persist(entity);
+        return entity;
     }
 
     public Hotel findByIdHotel(Integer id){

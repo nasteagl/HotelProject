@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.ClientDto;
 import org.example.dto.RoomDto;
 import org.example.services.RoomService;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/room")
-    public class RoomController {
+public class RoomController {
     private final  RoomService roomService;
 
     @GetMapping
@@ -31,13 +32,13 @@ import java.util.List;
     }
 
     @PostMapping
-    public void addRoom(@RequestBody RoomDto room){
-     roomService.addRoom(room);
+    public ResponseEntity<RoomDto> addRoom(@RequestBody RoomDto room){
+        return new ResponseEntity<>(roomService.addRoom(room),HttpStatus.OK);
     }
 
     @PutMapping
-    public void updateRoom(@RequestBody RoomDto room){
-     roomService.updateRoom(room);
+    public ResponseEntity<RoomDto> updateRoom(@RequestBody RoomDto room){
+        return new ResponseEntity<>(roomService.updateRoom(room),  HttpStatus.OK);
     }
 
     @DeleteMapping("/{roomId}")
@@ -74,7 +75,7 @@ import java.util.List;
 
 
 
-    /// Prin intermediul la Array deja creat, lipsa legaturii cu baza de date
+/// Prin intermediul la Array deja creat, lipsa legaturii cu baza de date
 //    ArrayList<Room> rooms = new ArrayList<>() {
 //        {
 //            add(new Room.RoomBuilder().setIdRoom(1).setFloor(1).setNumber(111).setPrice(1000).setBeds(2).setReserved(false).build());

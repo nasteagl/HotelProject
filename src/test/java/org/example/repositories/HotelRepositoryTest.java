@@ -37,7 +37,6 @@ class HotelRepositoryTest {
     void saveHotelTest() {
         //given
         Hotel hotel = Hotel.builder()
-                .hotel_id(1)
                 .hotelCountry("Country")
                 .hotelCity("City")
                 .hotelAddress("Address")
@@ -93,7 +92,6 @@ class HotelRepositoryTest {
         //then
         assertAll(
                 () ->assertNotNull(updatedHotel),
-                () -> assertEquals(1,updatedHotel.getHotel_id(), "Incorrect hotel ID"),
                 () -> assertEquals("Country",updatedHotel.getHotelCountry(), "incorrect name"),
                 () -> assertEquals("City",updatedHotel.getHotelCity(), "incorrect CITY"),
                 () -> assertEquals("Address",updatedHotel.getHotelAddress(), "incorrect address"),
@@ -106,7 +104,6 @@ class HotelRepositoryTest {
     void deleteHotelTest() {
         //given
         Hotel hotel = Hotel.builder()
-                .hotel_id(1)
                 .hotelCountry("Country")
                 .hotelCity("City")
                 .hotelAddress("Address")
@@ -131,7 +128,6 @@ class HotelRepositoryTest {
     void deleteByIdTest() {
         //given
         Hotel hotel = Hotel.builder()
-                .hotel_id(1)
                 .hotelCountry("Country")
                 .hotelCity("City")
                 .hotelAddress("Address")

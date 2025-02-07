@@ -26,23 +26,28 @@ public class RoomTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addRoomType(@RequestBody RoomTypeDto roomTypeDto) {
-        if(roomTypeDto != null) {
-            roomTypeService.addRoomType(roomTypeDto);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<RoomTypeDto> addRoomType(@RequestBody RoomTypeDto roomTypeDto) {
+        return new ResponseEntity<>(roomTypeService.addRoomType(roomTypeDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{roomType_id}")
     public ResponseEntity<RoomTypeDto> updateRoomType(@PathVariable Integer roomType_id, @RequestBody RoomTypeDto roomTypeBody) {
         RoomTypeDto roomTypeDto = roomTypeService.getRoomTypeById(roomType_id);
         if (roomTypeDto != null) {
-              roomTypeService.patchRoomType(roomType_id, roomTypeBody);
-              return new ResponseEntity<>(HttpStatus.OK);
+            roomTypeService.patchRoomType(roomType_id, roomTypeBody);
+            return new ResponseEntity<>(HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @DeleteMapping("/{roomTypeId}")
+    public ResponseEntity<Object> deleteRoomType(@PathVariable Integer roomTypeId) {
+        RoomTypeDto roomTypeDto = roomTypeService.getRoomTypeById(roomTypeId);
+        if (roomTypeDto != null) {
+            roomTypeService.deleteRoomType(roomTypeId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
 }
