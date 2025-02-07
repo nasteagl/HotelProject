@@ -35,22 +35,12 @@ public class HotelController {
 
     @PostMapping
     public ResponseEntity<HotelDto> addHotel(@RequestBody HotelDto hotel) {
-        if (hotel != null) {
-            hotelService.addHotel(hotel);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(hotelService.addHotel(hotel), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<HotelDto> updateHotel(@RequestBody HotelDto hotel) {
-        if (hotel != null) {
-            hotelService.updateHotel(hotel);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(hotelService.updateHotel(hotel), HttpStatus.OK);
     }
 
     // Delete a hotel by ID
@@ -70,7 +60,7 @@ public class HotelController {
         HotelDto hotel = hotelService.getHotel(hotel_id);
         if (hotel != null) {
             hotelService.patchHotel(hotel_id, hotelbody);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(hotel, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
