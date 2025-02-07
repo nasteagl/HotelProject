@@ -16,9 +16,9 @@ public class RoomTypeDto {
 
     static public RoomTypeDto fromRoomType(RoomType roomType){
         return   RoomTypeDto.builder()
-                .idRoomsType(roomType.getIdRoomsType())
-                .roomTypeEnum(roomType.getRoomTypeEnum())
-                .build();
+                 .idRoomsType(roomType.getIdRoomsType())
+                 .roomTypeEnum(roomType.getRoomTypeEnum())
+                 .build();
     }
 
    static public RoomType fromRoomTypeDto(RoomTypeDto roomTypeDto){

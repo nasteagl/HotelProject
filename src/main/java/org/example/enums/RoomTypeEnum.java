@@ -8,8 +8,5 @@ public enum RoomTypeEnum {
     SingleBed,
     Penthouse,
     FamilyRoom,
-    PresidentialSuite;
-
-
-
+    PresidentialSuite
 }

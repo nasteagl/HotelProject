@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.ClientDto;
 import org.example.dto.RoomDto;
 import org.example.services.RoomService;
 import org.springframework.http.HttpStatus;
@@ -31,13 +32,13 @@ import java.util.List;
     }
 
     @PostMapping
-    public void addRoom(@RequestBody RoomDto room){
-     roomService.addRoom(room);
+    public ResponseEntity<RoomDto> addRoom(@RequestBody RoomDto room){
+      return new ResponseEntity<>(roomService.addRoom(room),HttpStatus.OK);
     }
 
     @PutMapping
-    public void updateRoom(@RequestBody RoomDto room){
-     roomService.updateRoom(room);
+    public ResponseEntity<RoomDto> updateRoom(@RequestBody RoomDto room){
+      return new ResponseEntity<>(roomService.updateRoom(room),  HttpStatus.OK);
     }
 
     @DeleteMapping("/{roomId}")
